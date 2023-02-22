@@ -1,5 +1,4 @@
 @extends('layouts.base')
-@section('parentTitle', 'Title')
 @section('sbodyClass', 'g-sidenav-show  bg-gray-100')
 
 @section('baseFonts')
@@ -17,6 +16,7 @@
 {{-- Styling --}}
 @section('baseCSSPlugins')
     <!-- Corporate UI -->
+    <link href="{{ mix('assets/corporate-ui/css/siaji.css') }}" rel="stylesheet" />
     <link href="{{ mix('assets/corporate-ui/css/corporate-ui-dashboard.css') }}" rel="stylesheet" />
 
     @yield('css_plugins')

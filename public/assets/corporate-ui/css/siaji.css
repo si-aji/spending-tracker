@@ -1,0 +1,15 @@
+.menu-header {
+  position: relative;
+  margin-top: 0.5rem;
+}
+.menu-header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1rem;
+  height: 1px;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-50%);
+  left: -1.5rem;
+}

@@ -17,6 +17,18 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Master Data</span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link tw__flex tw__items-center" href="#">
+                    <div class="icon icon-shape icon-sm tw__flex tw__justify-center">
+                        <i class="fa-solid fa-house"></i>
+                        <title>wallet</title>
+                    </div>
+                    <span class="nav-link-text ms-1">Wallet</span>
+                </a>
+            </li>
         </ul>
     </div>
 </aside>

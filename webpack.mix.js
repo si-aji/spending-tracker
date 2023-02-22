@@ -16,6 +16,7 @@ mix.js('resources/js/app.js', 'public/assets/js')
     .sourceMaps();
 
 // Dashboard Admin
+mix.sass('resources/assets/corporate-ui/assets/css/custom.scss', 'public/assets/corporate-ui/css/siaji.css').version();
 mix.copyDirectory('resources/assets/corporate-ui/assets', 'public/assets/corporate-ui');
 mix.copy('resources/assets/corporate-ui/CHANGELOG.md', 'public/assets/corporate-ui');
 mix.copy('resources/assets/corporate-ui/README.md', 'public/assets/corporate-ui');
