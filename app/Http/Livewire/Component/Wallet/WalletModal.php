@@ -17,6 +17,7 @@ class WalletModal extends Component
      */
     public $wallet_modalTitle = 'Wallet: Create new';
     public $wallet_keepopen = false;
+    public $wallet_keepparent = false;
     public $walletReset_list = [];
     // List
     public $walletList_data = [];
@@ -57,16 +58,20 @@ class WalletModal extends Component
      */
     public function render()
     {
+        $this->fetchMainWallet();
         return view('livewire.component.wallet.wallet-modal');
     }
 
     /**
      * Custom Function
      */
-    public function fetchMailWallet()
+    public function fetchMainWallet()
     {
-        $this->walletList_data = \App\Models\Wallet::where()
+        $data = \App\Models\Wallet::where('user_id', \Auth::user()->id)
+            ->whereNull('parent_id')
+            ->orderBy('order_main', 'asc')
             ->get();
+        $this->walletList_data = collect($data);
     }
 
     public function hydrate()
@@ -85,13 +90,22 @@ class WalletModal extends Component
             'wallet_name' => ['required', 'string', 'max:191']
         ]);
 
+        $parent = null;
         // Save to database
         $data = new \App\Models\Wallet();
         if(!empty($this->wallet_uuid)){
             $data = \App\Models\Wallet::where('user_id', \Auth::user()->id)
                 ->where(\DB::raw('BINARY `uuid`'), $this->wallet_uuid)
                 ->first();
+        } else {
+            if(!empty($this->wallet_parent)){
+                $parent = \App\Models\Wallet::where('user_id', \Auth::user()->id)
+                    ->where(\DB::raw('BINARY `uuid`'), $this->wallet_parent)
+                    ->first();
+            }
+            $data->parent_id = !empty($parent) ? $parent->id : null;
         }
+        
 
         $data->user_id = \Auth::user()->id;
         $data->name = $this->wallet_name;
@@ -102,6 +116,55 @@ class WalletModal extends Component
         }
 
         $this->reset($this->walletReset_list);
+        if(!($this->wallet_keepparent)){
+            $this->dispatchBrowserEvent('walletModal-clearField');
+        } else {
+            $this->wallet_parent = $data->parent->uuid;
+        }
+
+        // Re-order Main Order
+        if(empty($data->parent_id)){
+            $lastOrder = -1;
+            $checkLastOrder = \App\Models\Wallet::where('user_id', \Auth::user()->id)
+                ->orderBy('order_main', 'desc')
+                ->first();
+            if(!empty($checkLastOrder)){
+                $lastOrder = $checkLastOrder->order_main;
+            }
+            $data->order_main = $lastOrder + 1;
+            $data->save();
+        } else {
+            $lastOrder = -1;
+            $lastOrderMain = -1;
+
+            $checkLastOrder = \App\Models\Wallet::where('user_id', \Auth::user()->id)
+                ->where('parent_id', $data->parent_id)
+                ->where('id', '!=', $data->id)
+                ->orderBy('order_main', 'desc')
+                ->first();
+            if(!empty($checkLastOrder)){
+                $lastOrder = $checkLastOrder->order;
+                $lastOrderMain = $checkLastOrder->order_main;
+            } else {
+                $lastOrder = $data->parent->order;
+                $lastOrderMain = $data->parent->order_main;
+            }
+
+            // Modify Order Main
+            $others = \App\Models\Wallet::where('user_id', \Auth::user()->id)
+                ->where('order_main', '>', $lastOrderMain)
+                ->orderBy('order_main', 'desc')
+                ->get();
+            foreach($others as $other){
+                $other->order_main += 1;
+                $other->save();
+            }
+
+            $data->order = $lastOrder + 1;
+            $data->order_main = $lastOrderMain + 1;
+            $data->save();
+        }
+        
     }
     public function edit($uuid)
     {
@@ -130,7 +193,8 @@ class WalletModal extends Component
     {
         $this->hydrate();
         $this->dispatchBrowserEvent('walletModal-modalHide');
+        $this->dispatchBrowserEvent('walletModal-clearField');
         $this->reset($this->walletReset_list);
-        $this->reset(['wallet_keepopen']);
+        $this->reset(['wallet_keepopen', 'wallet_keepparent']);
     }
 }

@@ -151,21 +151,20 @@
         function generateList(){
             // Get data from Component
             let data = @this.get('dataWallet');
-            console.log(data);
+            // console.log(data);
 
             let paneEl = document.getElementById('walletList-container');
             if(data.length > 0){
                 let existingItem = paneEl.querySelectorAll('.list-item');
                 if(existingItem.length > 0){
                     data.forEach((val, index) => {
-                        console.log(val);
-
+                        // console.log(val);
                         let wrapper = paneEl.querySelector(`.list-item[data-index="${index}"]`);
                         if(!wrapper){
                             let wrapperTemp = document.createElement('tr');
                             wrapperTemp.classList.add('list-item', 'tw__animate-pulse', 'hover:tw__bg-gray-100');
-                            wrapperTemp.dataset.index = i;
-                            wrapperTemp.innerHTML = ``;
+                            wrapperTemp.dataset.index = index;
+                            wrapperTemp.innerHTML = `<td colspan="4"></td>`;
                             paneEl.appendChild(wrapperTemp);
 
                             wrapper = paneEl.querySelector(`.list-item[data-index="${index}"]`);
@@ -174,6 +173,12 @@
                         // Remove animate
                         if(wrapper.classList.contains('tw__animate-pulse')){
                             wrapper.classList.remove('tw__animate-pulse');
+                        }
+
+                        // Variable
+                        let walletName = `${val.name}`;
+                        if(val.parent){
+                            walletName = `${val.parent.name} - ${val.name}`;
                         }
 
                         // Generate Action Button
@@ -197,7 +202,7 @@
                         // Create content
                         wrapper.innerHTML = `
                             <td>
-                                <span class="text-sm text-dark font-weight-semibold">${val.name}</span>
+                                <span class="text-sm text-dark font-weight-semibold">${walletName}</span>
                             </td>
                             <td>
                                 <span class="text-sm">Balance</span>
