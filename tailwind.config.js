@@ -9,5 +9,6 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-  prefix: 'tw__'
+  prefix: 'tw__',
+  important: true
 }

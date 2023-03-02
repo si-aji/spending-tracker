@@ -21,8 +21,21 @@ mix.copyDirectory('resources/assets/corporate-ui/assets', 'public/assets/corpora
 mix.copy('resources/assets/corporate-ui/CHANGELOG.md', 'public/assets/corporate-ui');
 mix.copy('resources/assets/corporate-ui/README.md', 'public/assets/corporate-ui');
 
+/**
+ * Plugins
+ */
 // Fontawesome
 mix.copyDirectory('node_modules/@fortawesome/fontawesome-free/css', 'public/assets/font/fontawesome/css');
 mix.copyDirectory('node_modules/@fortawesome/fontawesome-free/js', 'public/assets/font/fontawesome/js');
 mix.copyDirectory('node_modules/@fortawesome/fontawesome-free/svgs', 'public/assets/font/fontawesome/svgs');
 mix.copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/assets/font/fontawesome/webfonts');
+// Bootstrap
+mix.copy('node_modules/bootstrap/dist/js/bootstrap.bundle.js', 'public/assets/plugins/bootstrap/js');
+// Choices JS
+// Choices Js
+mix.copy('node_modules/choices.js/public/assets/scripts/choices.min.js', 'public/assets/plugins/choices.js/choices.min.js').version();
+mix.copy('node_modules/choices.js/public/assets/styles/base.min.css', 'public/assets/plugins/choices.js/base.min.css').version();
+mix.copy('node_modules/choices.js/public/assets/styles/choices.min.css', 'public/assets/plugins/choices.js/choices.min.css').version();
+// Moment JS
+mix.copy('node_modules/moment/dist/locale', 'public/assets/plugins/moment/locale');
+mix.copy('node_modules/moment/min/moment.min.js', 'public/assets/plugins/moment');

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
+
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,6 +22,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'username',
         'password',
     ];
 
@@ -41,4 +44,56 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
+    /**
+     * Primary Key Relation
+     * 
+     * @return model
+     */
+    public function wallet()
+    {
+        return $this->hasMany(\App\Models\Wallet::class, 'user_id');
+    }
+
+    /**
+     * Foreign Key Relation
+     * 
+     * @return model
+     */
+    //
+
+    /**
+     * The "boot" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Listen to Create Event
+        static::creating(function ($model) {
+            // Always generate UUID on Data Create
+            $model->{'uuid'} = (string) Str::uuid();
+        });
+    }
+
+    /**
+     * Scope
+     * 
+     */
+    public function scopeGetAvatar()
+    {
+        return getAvatar($this->name);
+    }
 }

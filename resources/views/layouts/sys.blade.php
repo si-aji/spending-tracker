@@ -1,5 +1,6 @@
-@extends('layouts.base')
-@section('sbodyClass', 'g-sidenav-show  bg-gray-100')
+@extends('layouts.base', [
+    'sbodyClass' => 'g-sidenav-show bg-gray-100'
+])
 
 @section('baseFonts')
     <!-- Fonts and icons -->
@@ -34,8 +35,18 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         @include('layouts.partials.sys.navbar')
 
-        @yield('content')
+        <div class="container py-4 ">
+            @yield('content')
+
+            @include('layouts.partials.sys.footer')
+        </div>
+
+        @yield('content_modal')
     </main>
+
+    @if (\Auth::check())
+        @livewire('auth.logout', ['user' => \Auth::user()], key(generateRandomString()))
+    @endif
 @endsection
 
 {{-- Script --}}

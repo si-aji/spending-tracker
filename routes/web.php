@@ -13,4 +13,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', \App\Http\Livewire\Public\Homepage\Index::class);
+// Auth
+Route::group([
+    'prefix' => 'auth',
+    'as' => 'auth.',
+    'middleware' => ['web']
+], function(){
+    Route::group([
+        'middleware' => ['guest']
+    ], function(){
+        Route::get('login', \App\Http\Livewire\Auth\Login::class)->name('login');
+        Route::get('register', \App\Http\Livewire\Auth\Register::class)->name('register');
+    });
+    
+    Route::group([
+        'middleware' => ['auth']
+    ], function(){
+        Route::get('logout', \App\Http\Livewire\Auth\Logout::class)->name('logout');
+    });
+});
+
+Route::get('/', function(){
+    return response()->json('ok');
+});
