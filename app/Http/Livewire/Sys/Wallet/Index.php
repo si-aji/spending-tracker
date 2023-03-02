@@ -53,7 +53,12 @@ class Index extends Component
             ->orderBy('order_main', 'asc');
 
         if($this->wallet_filter_search != ''){
-            $this->dataWallet->where('name', 'like', '%'.$this->wallet_filter_search.'%');
+            $this->dataWallet->where(function($q){
+                return $q->where('name', 'like', '%'.$this->wallet_filter_search.'%')
+                    ->orWhereHas('parent', function($q){
+                        return $q->where('name', 'like', '%'.$this->wallet_filter_search.'%');
+                    });
+            });
         }
 
         $this->dataWallet = $this->dataWallet->paginate($this->loadPerPage);
