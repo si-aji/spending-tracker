@@ -8,10 +8,6 @@
     </nav>
 @endsection
 
-@section('css_plugins')
-    <!-- Sample -->
-@endsection
-
 <div>
     {{-- The whole world belongs to you. --}}
     <div class="card border">
@@ -22,9 +18,9 @@
                     <p class="text-sm">See information about all wallet</p>
                 </div>
                 <div class="ms-auto d-flex">
-                    <button type="button" class="btn btn-sm btn-white me-2">
+                    <a href="{{ route('sys.wallet.re-order.index') }}" class="btn btn-sm btn-white me-2">
                         Re-order
-                    </button>
+                    </a>
                     <button type="button" class="btn btn-sm btn-dark btn-icon tw__flex tw__items-center tw__gap-2" wire:click="$emitTo('component.wallet.wallet-modal', 'showModal')">
                         <i class="fa-solid fa-plus"></i>
                         <span class="btn-inner--text">Add new</span>

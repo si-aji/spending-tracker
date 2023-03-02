@@ -25,6 +25,7 @@
 /*
 Plugins
 */
+// Choices Js
 .choices {
     .choices__inner {
         min-height: unset;
@@ -70,6 +71,117 @@ Plugins
                 border-color: #c0c4cc !important;
                 border-bottom-left-radius: 0.375rem !important;
                 border-bottom-right-radius: 0.375rem !important;
+            }
+        }
+    }
+}
+// Nestable
+.sa-sortable {
+	ol {
+		padding: 0;
+		margin: 0;
+
+		li {
+			display: block;
+			position: relative;
+			margin-bottom: .5rem;
+
+			p {
+				margin-bottom: 0;
+				display: inline-flex;
+				margin-right: .1rem;
+			}
+			.nst-handle {
+				position: absolute;
+				line-height: 1;
+				padding: .9rem 0.5rem;
+				top: 0;
+				left: 0;
+			}
+			span {
+				display: block;
+				text-overflow: ellipsis;
+				line-height: 1;
+				border: unset;
+				padding: 1rem 2rem;
+				margin: 0 !important;
+			}
+
+			ol {
+				padding-left: 20px;
+				box-sizing: border-box;
+
+				li {
+					margin-top: .5rem;
+					margin-bottom: .5rem;
+
+					span {
+						display: flex;
+					}
+				}
+			}
+		}
+	}
+}
+.nst-list {
+	display: block;
+
+    .nst-item {
+        // border-bottom: 1px solid #e5e7eb;
+		margin-bottom: .5rem;
+
+        .nst-list {
+			display: block;
+
+            .nst-item {
+                // border-top: 1px solid #e5e7eb;
+                // border-bottom: unset !important;
+				margin-top: .5rem;
+            }
+        }
+
+        .nst-handle {
+            position: absolute;
+            line-height: 1;
+            padding: .75rem 0.5rem;
+            top: 0;
+            left: 0;
+        }
+        .nst-content {
+            display: block;
+            text-overflow: ellipsis;
+            line-height: 1;
+            border: unset;
+            padding: .75rem 2rem;
+            margin: 0 !important;
+            background-color: rgb(248 250 252);
+
+			span {
+				display: unset;
+				padding: 0;
+
+				p {
+					display: unset;
+				}
+			}
+        }
+        .nst-button {
+            width: unset;
+            height: unset;
+            top: 0;
+            line-height: 1;
+            right: 0;
+            left: unset;
+            padding: .9rem 1rem;
+        }
+        .nst-placeholder {
+            // margin-bottom: unset !important;
+			margin-top: .5rem;
+        }
+        .nst-list {
+            .nst-content {
+                padding-top: .5rem !important;
+                padding-bottom: .5rem !important;
             }
         }
     }

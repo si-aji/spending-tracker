@@ -39,3 +39,8 @@ mix.copy('node_modules/choices.js/public/assets/styles/choices.min.css', 'public
 // Moment JS
 mix.copy('node_modules/moment/dist/locale', 'public/assets/plugins/moment/locale');
 mix.copy('node_modules/moment/min/moment.min.js', 'public/assets/plugins/moment');
+// Nestable
+mix.copy('node_modules/nestablejs/dist/nestable.css', 'public/assets/plugins/nestable/nestable.css').version();
+mix.js('resources/js/plugins/nestable/script.js', 'public/assets/plugins/nestable/nestable.js').version();
+// mix.copy('node_modules/nestablejs/dist/nestable.js', 'public/assets/plugins/nestable/nestable.js').version();
+// mix.js('node_modules/nestablejs/src/index.js', 'public/assets/plugins/nestable/nestable.js').version();

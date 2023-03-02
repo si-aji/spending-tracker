@@ -21,5 +21,13 @@ Route::group([
     Route::get('/', \App\Http\Livewire\Sys\Dashboard\Index::class)->name('index');
 
     // Wallet
-    Route::get('wallet', \App\Http\Livewire\Sys\Wallet\Index::class)->name('wallet.index');
+    Route::group([
+        'prefix' => 'wallet',
+        'as' => 'wallet.'
+    ], function(){
+        // Re Order
+        Route::get('re-order', \App\Http\Livewire\Sys\Wallet\ReOrder::class)->name('re-order.index');
+        // List
+        Route::get('/', \App\Http\Livewire\Sys\Wallet\Index::class)->name('index');
+    });
 });
