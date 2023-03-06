@@ -1,14 +1,17 @@
 {
-    "/assets/js/app.js": "/assets/js/app.js?id=74bb8e39fc5fa11e059bd61188606fa1",
-    "/assets/plugins/nestable/nestable.js": "/assets/plugins/nestable/nestable.js?id=acabbca3467b991d64f6901aea7c9664",
-    "/assets/css/app.css": "/assets/css/app.css?id=57059f56ddae60b42f195b7550de3ee3",
-    "/assets/corporate-ui/css/siaji.css": "/assets/corporate-ui/css/siaji.css?id=0b0b9f7f792816c7c90ccf4b70b1f47a",
+    "/assets/js/app.js": "/assets/js/app.js?id=4fe90820a741ba4253669e41374ef6f1",
+    "/assets/plugins/nestable/nestable.js": "/assets/plugins/nestable/nestable.js?id=2012c7c6a6b4bc623df6453bdfa96f45",
+    "/assets/plugins/imask/imask.js": "/assets/plugins/imask/imask.js?id=55faedefc64d28e2b1358b93fcaec833",
+    "/assets/plugins/flatpickr/flatpickr.min.js": "/assets/plugins/flatpickr/flatpickr.min.js?id=da4cbb2ac0ff810bfa5885cde3f5e681",
+    "/assets/css/app.css": "/assets/css/app.css?id=bc0000df14b20e457f27313b98b46202",
+    "/assets/corporate-ui/css/siaji.css": "/assets/corporate-ui/css/siaji.css?id=cb0fe47ab102ca97180e28d2cbb2b667",
+    "/assets/corporate-ui/js/siaji.js": "/assets/corporate-ui/js/siaji.js?id=80065c16e316a01ab8f3a5c93cff8158",
     "/assets/corporate-ui/CHANGELOG.md": "/assets/corporate-ui/CHANGELOG.md?id=98bb060a97b8d9585846660d032465a9",
     "/assets/corporate-ui/README.md": "/assets/corporate-ui/README.md?id=a1fb9faef27f5f2586b7dc086f62cfc4",
     "/assets/corporate-ui/css/corporate-ui-dashboard.css": "/assets/corporate-ui/css/corporate-ui-dashboard.css?id=19f9bc4260c27e95fb98b7ee70be9b28",
     "/assets/corporate-ui/css/corporate-ui-dashboard.css.map": "/assets/corporate-ui/css/corporate-ui-dashboard.css.map?id=6f0f3006ea4a5e0800c20aba7a84c8a6",
     "/assets/corporate-ui/css/corporate-ui-dashboard.min.css": "/assets/corporate-ui/css/corporate-ui-dashboard.min.css?id=ba24093b658a71b79ce77743616e66d7",
-    "/assets/corporate-ui/css/custom.scss": "/assets/corporate-ui/css/custom.scss?id=af07b7804db1107f2d06f0aa6e89148e",
+    "/assets/corporate-ui/css/custom.scss": "/assets/corporate-ui/css/custom.scss?id=c8ae000d4486d916447ade18ea2b4249",
     "/assets/corporate-ui/css/nucleo-icons.css": "/assets/corporate-ui/css/nucleo-icons.css?id=82b2a768a478315a65cb7d27a9c29e11",
     "/assets/corporate-ui/css/nucleo-svg.css": "/assets/corporate-ui/css/nucleo-svg.css?id=99515a64208b82a5ed93779b5abd5b1c",
     "/assets/corporate-ui/css/siaji.css.map": "/assets/corporate-ui/css/siaji.css.map?id=83780053be35c025ba6470f98882acb0",
@@ -2463,5 +2466,7 @@
     "/assets/plugins/moment/locale/zh-mo.js": "/assets/plugins/moment/locale/zh-mo.js?id=2627214ad6f82ed31614c2ef7e5e8939",
     "/assets/plugins/moment/locale/zh-tw.js": "/assets/plugins/moment/locale/zh-tw.js?id=b85d03d276985728f716f6f10e9f90e3",
     "/assets/plugins/moment/moment.min.js": "/assets/plugins/moment/moment.min.js?id=6c0a2330b0d8d6ea185d4669a0eddeab",
-    "/assets/plugins/nestable/nestable.css": "/assets/plugins/nestable/nestable.css?id=3121e0ba7527a605e4088b35239e42be"
+    "/assets/plugins/moment/moment-timezone-with-data.min.js": "/assets/plugins/moment/moment-timezone-with-data.min.js?id=2622477c8a013ad7813291da3f5ef628",
+    "/assets/plugins/nestable/nestable.css": "/assets/plugins/nestable/nestable.css?id=3121e0ba7527a605e4088b35239e42be",
+    "/assets/plugins/flatpickr/flatpickr.min.css": "/assets/plugins/flatpickr/flatpickr.min.css?id=d5a8fe5612330fee581d3f83b37ef858"
 }

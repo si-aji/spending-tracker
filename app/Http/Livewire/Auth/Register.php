@@ -73,6 +73,10 @@ class Register extends Component
             'password' => Hash::make($this->password),
         ]);
 
+        // Generate default category
+        event(new \App\Events\UserRegistered($user));
+        // Send registration email
+
         // Login User
         Auth::login($user, true);
         return redirect()->intended(route('sys.index'));

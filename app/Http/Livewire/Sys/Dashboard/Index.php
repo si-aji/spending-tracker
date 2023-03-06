@@ -32,7 +32,8 @@ class Index extends Component
      */
     public function mount()
     {
-        // 
+        $this->menuState = 'dashboard';
+        $this->submenuState = null;
     }
 
     /**
@@ -41,7 +42,9 @@ class Index extends Component
     public function render()
     {
         return view('livewire.sys.dashboard.index')
-            ->extends('layouts.sys');
+            ->extends('layouts.sys', [
+                'menuState' => $this->menuState,
+            ]);
     }
 
     /**

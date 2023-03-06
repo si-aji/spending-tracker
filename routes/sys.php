@@ -20,6 +20,15 @@ Route::group([
     // Dashboard
     Route::get('/', \App\Http\Livewire\Sys\Dashboard\Index::class)->name('index');
 
+    // Record
+    Route::group([
+        'prefix' => 'record',
+        'as' => 'record.'
+    ], function(){
+        // List
+        Route::get('/', \App\Http\Livewire\Sys\Record\Index::class)->name('index');
+    });
+
     // Wallet
     Route::group([
         'prefix' => 'wallet',
@@ -29,5 +38,16 @@ Route::group([
         Route::get('re-order', \App\Http\Livewire\Sys\Wallet\ReOrder::class)->name('re-order.index');
         // List
         Route::get('/', \App\Http\Livewire\Sys\Wallet\Index::class)->name('index');
+    });
+
+    // Category
+    Route::group([
+        'prefix' => 'category',
+        'as' => 'category.'
+    ], function(){
+        // Re Order
+        Route::get('re-order', \App\Http\Livewire\Sys\Category\ReOrder::class)->name('re-order.index');
+        // List
+        Route::get('/', \App\Http\Livewire\Sys\Category\Index::class)->name('index');
     });
 });

@@ -64,6 +64,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\Wallet::class, 'user_id');
     }
+    public function category()
+    {
+        return $this->hasMany(\App\Models\Category::class, 'user_id');
+    }
+    public function record()
+    {
+        return $this->hasMany(\App\Models\Record::class, 'user_id');
+    }
 
     /**
      * Foreign Key Relation
@@ -95,5 +103,9 @@ class User extends Authenticatable
     public function scopeGetAvatar()
     {
         return getAvatar($this->name);
+    }
+    public function scopeGetFirstYear()
+    {
+        return date('Y', strtotime('2021-01-01'));
     }
 }

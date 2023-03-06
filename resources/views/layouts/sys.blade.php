@@ -1,5 +1,5 @@
 @extends('layouts.base', [
-    'sbodyClass' => 'g-sidenav-show bg-gray-100'
+    'sbodyClass' => 'g-sidenav-show bg-gray-100 tw__relative'
 ])
 
 @section('baseFonts')
@@ -17,8 +17,8 @@
 {{-- Styling --}}
 @section('baseCSSPlugins')
     <!-- Corporate UI -->
-    <link href="{{ mix('assets/corporate-ui/css/siaji.css') }}" rel="stylesheet" />
     <link href="{{ mix('assets/corporate-ui/css/corporate-ui-dashboard.css') }}" rel="stylesheet" />
+    <link href="{{ mix('assets/corporate-ui/css/siaji.css') }}" rel="stylesheet" />
 
     @yield('css_plugins')
 @endsection
@@ -32,18 +32,30 @@
 @section('body')
 	@include('layouts.partials.sys.sidebar')
 
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <main class="main-content position-relative max-height-vh-100 h-100 tw__min-h-screen border-radius-lg ">
         @include('layouts.partials.sys.navbar')
 
         <div class="container py-4 ">
             @yield('content')
-
-            @include('layouts.partials.sys.footer')
         </div>
 
         @yield('content_modal')
+        @livewire('component.record.record-modal', ['user' => \Auth::user()], key(\Auth::user()->id))
+
+        @include('layouts.partials.sys.footer')
     </main>
 
+    <!-- Floating Button -->
+    <div class=" tw__fixed tw__right-6 tw__bottom-10">
+        <button class=" btn btn-sm btn-primary" x-on:click="window.livewire.emitTo('component.record.record-modal', 'showModal')">
+            <span>
+                <i class="fa-solid fa-plus"></i>
+                <span>Create new record</span>
+            </span>
+        </button>
+    </div>
+
+    <!-- Logout Form -->
     @if (\Auth::check())
         @livewire('auth.logout', ['user' => \Auth::user()], key(generateRandomString()))
     @endif
@@ -60,7 +72,9 @@
     <script src="{{ mix('assets/corporate-ui/js/plugins/swiper-bundle.min.js') }}" type="text/javascript"></script>
 	<!-- Control Center for Corporate UI Dashboard: parallax effects, scripts for the example pages etc -->
 	<script src="{{ mix('assets/corporate-ui/js/corporate-ui-dashboard.min.js') }}"></script>
+    <script src="{{ mix('assets/corporate-ui/js/siaji.js') }}"></script>
 
+    @include('layouts.plugins.imask.js')
     @yield('js_plugins')
 @endsection
 

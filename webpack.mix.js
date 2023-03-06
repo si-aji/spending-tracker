@@ -17,6 +17,7 @@ mix.js('resources/js/app.js', 'public/assets/js')
 
 // Dashboard Admin
 mix.sass('resources/assets/corporate-ui/assets/css/custom.scss', 'public/assets/corporate-ui/css/siaji.css').version();
+mix.copy('resources/js/custom.js', 'public/assets/corporate-ui/js/siaji.js').version();
 mix.copyDirectory('resources/assets/corporate-ui/assets', 'public/assets/corporate-ui');
 mix.copy('resources/assets/corporate-ui/CHANGELOG.md', 'public/assets/corporate-ui');
 mix.copy('resources/assets/corporate-ui/README.md', 'public/assets/corporate-ui');
@@ -39,8 +40,14 @@ mix.copy('node_modules/choices.js/public/assets/styles/choices.min.css', 'public
 // Moment JS
 mix.copy('node_modules/moment/dist/locale', 'public/assets/plugins/moment/locale');
 mix.copy('node_modules/moment/min/moment.min.js', 'public/assets/plugins/moment');
+mix.copy('node_modules/moment-timezone/builds/moment-timezone-with-data.min.js', 'public/assets/plugins/moment');
 // Nestable
 mix.copy('node_modules/nestablejs/dist/nestable.css', 'public/assets/plugins/nestable/nestable.css').version();
 mix.js('resources/js/plugins/nestable/script.js', 'public/assets/plugins/nestable/nestable.js').version();
 // mix.copy('node_modules/nestablejs/dist/nestable.js', 'public/assets/plugins/nestable/nestable.js').version();
 // mix.js('node_modules/nestablejs/src/index.js', 'public/assets/plugins/nestable/nestable.js').version();
+// Imask
+mix.js('resources/js/plugins/imask/script.js', 'public/assets/plugins/imask/imask.js').version();
+// Flatpickr
+mix.js('resources/js/plugins/flatpickr/script.js', 'public/assets/plugins/flatpickr/flatpickr.min.js').version();
+mix.copy('node_modules/flatpickr/dist/flatpickr.min.css', 'public/assets/plugins/flatpickr/flatpickr.min.css').version();

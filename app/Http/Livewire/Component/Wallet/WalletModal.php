@@ -83,7 +83,8 @@ class WalletModal extends Component
     {
         \Log::debug("Debug on Wallet Modal Save function", [
             'name' => $this->wallet_name,
-            'modal_state' => $this->wallet_keepopen
+            'modal_state' => $this->wallet_keepopen,
+            'parent' => $this->wallet_parent
         ]);
 
         $this->validate([

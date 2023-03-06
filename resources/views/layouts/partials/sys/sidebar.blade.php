@@ -1,4 +1,4 @@
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 bg-slate-900 fixed-start tw__h-screen" id="sidenav-main">
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 bg-slate-900 fixed-start tw__h-screen tw__z-[1039]" id="sidenav-main">
 	<div class="sidenav-header">
 		<i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
 		<a class="navbar-brand d-flex align-items-center m-0" href="{{ env('APP_URL') }}">
@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse px-4 w-auto xl:tw__h-[calc(100vh-80px)]" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link tw__flex tw__items-center {{ isset($menuState) ? ($menuState === 'dashboard' ? 'active' : null) : null }}" href="#">
+                <a class="nav-link tw__flex tw__items-center {{ isset($menuState) ? ($menuState === 'dashboard' ? 'active' : null) : null }}" href="{{ route('sys.index') }}">
                     <div class="icon icon-shape icon-sm tw__flex tw__justify-center">
                         <i class="fa-solid fa-house"></i>
                         <title>dashboard</title>
@@ -22,7 +22,7 @@
                 <span class="menu-header-text">Feature</span>
             </li>
             <li class="nav-item">
-                <a class="nav-link tw__flex tw__items-center" href="#">
+                <a class="nav-link tw__flex tw__items-center {{ isset($menuState) ? ($menuState === 'record' ? 'active' : null) : null }}" href="{{ route('sys.record.index') }}">
                     <div class="icon icon-shape icon-sm tw__flex tw__justify-center">
                         <i class="fa-solid fa-receipt"></i>
                         <title>record</title>
@@ -75,7 +75,7 @@
                 <span class="menu-header-text">MISCELLANEOUS</span>
             </li>
             <li class="nav-item">
-                <a class="nav-link tw__flex tw__items-center" href="#">
+                <a class="nav-link tw__flex tw__items-center {{ isset($menuState) ? (in_array($menuState, ['category']) ? 'active' : null) : null }}" href="javascript:void(0)">
                     <div class="icon icon-shape icon-sm tw__flex tw__justify-center">
                         <i class="fa-solid fa-circle-user"></i>
                         <title>account</title>
@@ -83,22 +83,22 @@
                     <span class="nav-link-text ms-1">Account</span>
                 </a>
             </li>
-            <li class="nav-item border-start my-0">
+            <li class="nav-item border-start my-0 tw__relative">
                 <a class="nav-link tw__flex tw__items-center" href="#">
                     <span class="nav-link-text ms-1">Profile</span>
                 </a>
             </li>
-            <li class="nav-item border-start my-0">
-                <a class="nav-link tw__flex tw__items-center" href="#">
+            <li class="nav-item border-start my-0 tw__relative">
+                <a class="nav-link tw__flex tw__items-center {{ isset($menuState) ? ($menuState === 'category' ? 'active' : null) : null }}" href="{{ route('sys.category.index') }}">
                     <span class="nav-link-text ms-1">Category</span>
                 </a>
             </li>
-            <li class="nav-item border-start my-0">
+            <li class="nav-item border-start my-0 tw__relative">
                 <a class="nav-link tw__flex tw__items-center" href="#">
                     <span class="nav-link-text ms-1">Tags</span>
                 </a>
             </li>
-            <li class="nav-item border-start my-0">
+            <li class="nav-item border-start my-0 tw__relative">
                 <a class="nav-link tw__flex tw__items-center" href="#">
                     <span class="nav-link-text ms-1">Preference</span>
                 </a>

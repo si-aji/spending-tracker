@@ -64,6 +64,14 @@ class Wallet extends Model
     {
         return $this->hasMany(\App\Models\Wallet::class, 'parent_id');
     }
+    public function record()
+    {
+        return $this->hasMany(\App\Models\Record::class, 'from_wallet_id');
+    }
+    public function recordRelated()
+    {
+        return $this->hasOne(\App\Models\Record::class, 'to_wallet_id');
+    }
 
     /**
      * Foreign Key Relation

@@ -42,6 +42,7 @@
         <!-- Script -->
         <script src="{{ mix('assets/js/app.js') }}"></script>
         <script src="{{ mix('assets/plugins/moment/moment.min.js') }}"></script>
+        <script src="{{ mix('assets/plugins/moment/moment-timezone-with-data.min.js') }}"></script>
         <!-- JS Plugins -->
         @yield('baseJsPlugins')
         <!-- Script Inline -->
