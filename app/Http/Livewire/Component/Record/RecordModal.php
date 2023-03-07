@@ -274,8 +274,8 @@ class RecordModal extends Component
                 $data->to_wallet_id = !empty($fromWallet) && !empty($toWallet) ? ($type === 'expense' ? $toWallet->id : $fromWallet->id) : null;
                 $data->amount = $this->record_amount;
                 $data->extra_type = $this->record_extra_type;
-                $data->extra_percentage = $this->record_extra_type === 'percentage' ? $this->record_extra_amount : 0;
-                $data->extra_amount = $this->record_extra_type === 'percentage' ? ($this->record_extra_amount ? (($this->record_extra_amount * $this->record_amount) / 100) : 0) : ($this->record_extra_amount ?? 0);
+                $data->extra_percentage = ($type === 'expense') ? ($this->record_extra_type === 'percentage' ? $this->record_extra_amount : 0) : 0;
+                $data->extra_amount = ($type === 'expense') ? ($this->record_extra_type === 'percentage' ? ($this->record_extra_amount ? (($this->record_extra_amount * $this->record_amount) / 100) : 0) : ($this->record_extra_amount ?? 0)) : 0;
                 $data->date = date('Y-m-d', strtotime($datetime));
                 $data->time = date('H:i:00', strtotime($datetime));
                 $data->datetime = date('Y-m-d H:i:00', strtotime($datetime));
@@ -323,55 +323,6 @@ class RecordModal extends Component
             $datetime = $formated->setTimezone('UTC')->format('Y-m-d H:i:s');
         }
 
-        // if($type !== $this->record_type){
-        //     if($type === 'transfer'){
-        //         $related = null;
-        //         // Previous type is transfer, so remove related data
-        //         if($data->type === 'income'){
-        //             $related = $data;
-        //             // Change to expense
-        //             $data = \App\Models\Record::where('user_id', \Auth::user()->id)
-        //                 ->where('type', 'expense')
-        //                 ->where('from_wallet_id', $data->to_wallet_id)
-        //                 ->where('to_wallet_id', $data->from_wallet_id)
-        //                 ->where('amount', $data->amount)
-        //                 ->where('extra_type', $data->extra_type)
-        //                 ->where('extra_percentage', $data->extra_percentage)
-        //                 ->where('extra_amount', $data->extra_amount)
-        //                 ->where('note', $data->note)
-        //                 ->where('datetime', $data->datetime)
-        //                 ->where('created_at', $data->created_at)
-        //                 ->firstOrFail();
-        //         } else {
-        //             $related = \App\Models\Record::where('user_id', \Auth::user()->id)
-        //                 ->where('type', 'income')
-        //                 ->where('from_wallet_id', $data->to_wallet_id)
-        //                 ->where('to_wallet_id', $data->from_wallet_id)
-        //                 ->where('amount', $data->amount)
-        //                 ->where('extra_type', $data->extra_type)
-        //                 ->where('extra_percentage', $data->extra_percentage)
-        //                 ->where('extra_amount', $data->extra_amount)
-        //                 ->where('note', $data->note)
-        //                 ->where('datetime', $data->datetime)
-        //                 ->where('created_at', $data->created_at)
-        //                 ->firstOrFail();
-        //         }
-
-        //         // Remove related
-        //         if(!empty($related)){
-        //             $data->to_wallet_id = null;
-        //             $related->delete();
-        //         }
-        //     }
-
-        //     if($this->record_type === 'transfer'){
-        //         // New record is transfer, and previous record is not transfer
-        //     } else {
-        //         // Update record from transfer to either expense/income
-        //         $data->type = $this->record_type;
-        //     }
-        // }
-
         if($type !== $this->record_type){
             // Check previous type
             if($type === 'transfer'){
@@ -380,31 +331,31 @@ class RecordModal extends Component
                 if($data->type === 'income'){
                     $related = $data;
                     // Change to expense
-                    $data = \App\Models\Record::where('user_id', \Auth::user()->id)
-                        ->where('type', 'expense')
-                        ->where('from_wallet_id', $data->to_wallet_id)
-                        ->where('to_wallet_id', $data->from_wallet_id)
-                        ->where('amount', $data->amount)
-                        ->where('extra_type', $data->extra_type)
-                        ->where('extra_percentage', $data->extra_percentage)
-                        ->where('extra_amount', $data->extra_amount)
-                        ->where('note', $data->note)
-                        ->where('datetime', $data->datetime)
-                        ->where('created_at', $data->created_at)
-                        ->firstOrFail();
+                    // $data = \App\Models\Record::where('user_id', \Auth::user()->id)
+                    //     ->where('type', 'expense')
+                    //     ->where('from_wallet_id', $data->to_wallet_id)
+                    //     ->where('to_wallet_id', $data->from_wallet_id)
+                    //     ->where('amount', $data->amount)
+                    //     ->where('extra_type', $data->extra_type)
+                    //     ->where('note', $data->note)
+                    //     ->where('datetime', $data->datetime)
+                    //     ->where('created_at', $data->created_at)
+                    //     ->firstOrFail();
+
+                    $data = $data->getRelated();
                 } else {
-                    $related = \App\Models\Record::where('user_id', \Auth::user()->id)
-                        ->where('type', 'income')
-                        ->where('from_wallet_id', $data->to_wallet_id)
-                        ->where('to_wallet_id', $data->from_wallet_id)
-                        ->where('amount', $data->amount)
-                        ->where('extra_type', $data->extra_type)
-                        ->where('extra_percentage', $data->extra_percentage)
-                        ->where('extra_amount', $data->extra_amount)
-                        ->where('note', $data->note)
-                        ->where('datetime', $data->datetime)
-                        ->where('created_at', $data->created_at)
-                        ->firstOrFail();
+                    // $related = \App\Models\Record::where('user_id', \Auth::user()->id)
+                    //     ->where('type', 'income')
+                    //     ->where('from_wallet_id', $data->to_wallet_id)
+                    //     ->where('to_wallet_id', $data->from_wallet_id)
+                    //     ->where('amount', $data->amount)
+                    //     ->where('extra_type', $data->extra_type)
+                    //     ->where('note', $data->note)
+                    //     ->where('datetime', $data->datetime)
+                    //     ->where('created_at', $data->created_at)
+                    //     ->firstOrFail();
+
+                    $related = $data->getRelated();
                 }
 
                 // Remove related
@@ -452,8 +403,8 @@ class RecordModal extends Component
                 $related->to_wallet_id = $data->type === 'expense' ? $fromWallet->id : $toWallet->id;
                 $related->amount = $data->amount;
                 $related->extra_type = $data->extra_type;
-                $related->extra_percentage = $data->extra_percentage;
-                $related->extra_amount = $data->extra_amount;
+                $related->extra_percentage = 0;
+                $related->extra_amount = 0;
                 $related->note = $data->note;
                 $related->date = date('Y-m-d', strtotime($data->date));
                 $related->time = date('H:i:00', strtotime($data->time));
@@ -468,31 +419,30 @@ class RecordModal extends Component
                 if($data->type === 'income'){
                     $related = $data;
                     // Change to expense
-                    $data = \App\Models\Record::where('user_id', \Auth::user()->id)
-                        ->where('type', 'expense')
-                        ->where('from_wallet_id', $data->to_wallet_id)
-                        ->where('to_wallet_id', $data->from_wallet_id)
-                        ->where('amount', $data->amount)
-                        ->where('extra_type', $data->extra_type)
-                        ->where('extra_percentage', $data->extra_percentage)
-                        ->where('extra_amount', $data->extra_amount)
-                        ->where('note', $data->note)
-                        ->where('datetime', $data->datetime)
-                        ->where('updated_at', $data->updated_at)
-                        ->firstOrFail();
+                    // $data = \App\Models\Record::where('user_id', \Auth::user()->id)
+                    //     ->where('type', 'expense')
+                    //     ->where('from_wallet_id', $data->to_wallet_id)
+                    //     ->where('to_wallet_id', $data->from_wallet_id)
+                    //     ->where('amount', $data->amount)
+                    //     ->where('extra_type', $data->extra_type)
+                    //     ->where('note', $data->note)
+                    //     ->where('datetime', $data->datetime)
+                    //     ->where('updated_at', $data->updated_at)
+                    //     ->firstOrFail();
+                    $data = $data->getRelated();
                 } else {
-                    $related = \App\Models\Record::where('user_id', \Auth::user()->id)
-                        ->where('type', 'income')
-                        ->where('from_wallet_id', $data->to_wallet_id)
-                        ->where('to_wallet_id', $data->from_wallet_id)
-                        ->where('amount', $data->amount)
-                        ->where('extra_type', $data->extra_type)
-                        ->where('extra_percentage', $data->extra_percentage)
-                        ->where('extra_amount', $data->extra_amount)
-                        ->where('note', $data->note)
-                        ->where('datetime', $data->datetime)
-                        ->where('updated_at', $data->updated_at)
-                        ->firstOrFail();
+                    // $related = \App\Models\Record::where('user_id', \Auth::user()->id)
+                    //     ->where('type', 'income')
+                    //     ->where('from_wallet_id', $data->to_wallet_id)
+                    //     ->where('to_wallet_id', $data->from_wallet_id)
+                    //     ->where('amount', $data->amount)
+                    //     ->where('extra_type', $data->extra_type)
+                    //     ->where('note', $data->note)
+                    //     ->where('datetime', $data->datetime)
+                    //     ->where('updated_at', $data->updated_at)
+                    //     ->firstOrFail();
+
+                    $related = $data->getRelated();
                 }
 
                 // Update Data
@@ -516,8 +466,8 @@ class RecordModal extends Component
                 $related->to_wallet_id = !empty($fromWallet) ? $fromWallet->id : null;
                 $related->amount = $this->record_amount;
                 $related->extra_type = $this->record_extra_type;
-                $related->extra_percentage = $this->record_extra_type === 'percentage' ? $this->record_extra_amount : 0;
-                $related->extra_amount = $this->record_extra_type === 'percentage' ? ($this->record_extra_amount * $this->record_amount) / 100 : $this->record_extra_amount;
+                $related->extra_percentage = 0;
+                $related->extra_amount = 0;
                 $related->note = $this->record_note;
                 $related->date = date('Y-m-d', strtotime($datetime));
                 $related->time = date('H:i:00', strtotime($datetime));
@@ -549,6 +499,12 @@ class RecordModal extends Component
         $data = \App\Models\Record::where('user_id', \Auth::user()->id)
             ->where(\DB::raw('BINARY `uuid`'), $uuid)
             ->firstOrFail();
+        if(!empty($data->to_wallet_id) && $data->type === 'income'){
+            $related = $data->getRelated();
+            if(!empty($related)){
+                $data = $related;
+            }
+        }
 
         $this->categoryData = !empty($data->category_id) ? collect($data->category->load('parent')) : null;
 

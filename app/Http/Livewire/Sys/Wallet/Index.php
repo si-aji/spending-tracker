@@ -68,7 +68,12 @@ class Index extends Component
         $paginate = $this->dataWallet;
         $this->dataWallet = collect($this->dataWallet->items())->values()->map(function($data){
             $data->balance = $data->getBalance();
-            $data->last_transaction = $data->getLastTransaction();
+
+            $data->last_transaction = null;
+            if(\App\Models\Record::count() > 0){
+                $data->last_transaction = $data->getLastTransaction();
+            }
+
             return $data;
         });
 

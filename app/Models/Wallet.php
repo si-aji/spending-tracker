@@ -108,13 +108,18 @@ class Wallet extends Model
      */
     public function scopeGetBalance()
     {
+        $startingBalance = 0;
+        if(!empty($this->starting_balance)){
+            $startingBalance = $this->starting_balance;
+        }
+
         $balance = $this->record();
 
         // Sort balance
         $balance->orderBy('datetime', 'desc')
             ->orderBy('created_at', 'desc');
 
-        return $balance->sum(\DB::raw('(amount + extra_amount) * IF(type = "expense", -1, 1)'));
+        return $startingBalance + $balance->sum(\DB::raw('(amount + extra_amount) * IF(type = "expense", -1, 1)'));
     }
     public function scopeGetLastTransaction($query)
     {

@@ -119,11 +119,8 @@ class Record extends Model
                 ->where('to_wallet_id', $this->from_wallet_id)
                 ->where('amount', $this->amount)
                 ->where('extra_type', $this->extra_type)
-                ->where('extra_percentage', $this->extra_percentage)
-                ->where('extra_amount', $this->extra_amount)
                 ->where('note', $this->note)
                 ->where('datetime', $this->datetime)
-                ->where('updated_at', $this->updated_at)
                 ->first();
         }
 
