@@ -56,7 +56,7 @@
                             <th class="text-secondary text-sm font-weight-semibold opacity-7 ps-2"></th>
                         </tr>
                     </thead>
-                    <tbody id="walletList-container"></tbody>
+                    <tbody id="walletList-container" wire:ignore></tbody>
                 </table>
             </div>
         </div>
@@ -140,6 +140,7 @@
         });
 
         window.addEventListener('walletListLoadData', () => {
+            console.log('Generate List');
             if(document.getElementById('walletList-container')){
                 generateList();
             }
@@ -147,11 +148,12 @@
         function generateList(){
             // Get data from Component
             let data = @this.get('dataWallet');
-            // console.log(data);
+            console.log(data);
 
             let paneEl = document.getElementById('walletList-container');
             if(data.length > 0){
                 let existingItem = paneEl.querySelectorAll('.list-item');
+                console.log(existingItem);
                 if(existingItem.length > 0){
                     data.forEach((val, index) => {
                         // console.log(val);
@@ -175,6 +177,23 @@
                         let walletName = `${val.name}`;
                         if(val.parent){
                             walletName = `${val.parent.name} - ${val.name}`;
+                        }
+                        let lastTransaction = `-`;
+                        if(val.last_transaction && Object.keys(val.last_transaction).length > 0){
+                            let timezone = null;
+                            if(moment.tz.guess()){
+                                timezone = moment.tz.guess();
+                            }
+                            let recordDate = momentFormated('YYYY-MM-DD HH:mm:ss', timezone, val.last_transaction.datetime);
+                            
+                            lastTransaction = `
+                                <div class=" tw__grid tw__grid-flow-row">
+                                    <div>
+                                        <span class="badge badge-sm border border-${val.last_transaction.type === 'expense' ? 'danger' : 'success'} text-${val.last_transaction.type === 'expense' ? 'danger' : 'success'} bg-${val.last_transaction.type === 'expense' ? 'danger' : 'success'}">${val.last_transaction.to_wallet_id ? 'Transfer - ' : ''}${ucwords(val.last_transaction.type)}</span>
+                                    </div>
+                                    <span class="text-sm tw__mt-2"><span>${formatRupiah(parseFloat(val.last_transaction.amount) + parseFloat(val.last_transaction.extra_amount))}</span> at ${moment(recordDate).format('DD MMM, YYYY / HH:mm')} <small>(${moment().tz(timezone ?? 'Asia/Jakarta').format('Z')})</small></span>
+                                </div>
+                            `;
                         }
 
                         // Generate Action Button
@@ -201,15 +220,10 @@
                                 <span class="text-sm text-dark font-weight-semibold">${walletName}</span>
                             </td>
                             <td>
-                                <span class="text-sm">Balance</span>
+                                <strong class="text-sm">${formatRupiah(val.balance)}</strong>
                             </td>
                             <td>
-                                <div class=" tw__grid tw__grid-flow-row">
-                                    <div>
-                                        <span class="badge badge-sm border border-success text-success bg-success">Income</span>
-                                    </div>
-                                    <span class="text-sm tw__mt-2"><strong>Rp 50.000,-</strong> at ${moment().format('Do, MMM YYYY / HH:mm')}</span>
-                                </div>
+                                ${lastTransaction}
                             </td>
                             <td>
                                 <div class=" tw__flex tw__items-center tw__gap-2">

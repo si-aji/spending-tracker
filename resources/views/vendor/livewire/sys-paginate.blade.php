@@ -1,39 +1,73 @@
-    <div class=" lg:tw__hidden">
-        <div class=" tw__flex tw__items-center">
-            <p class="font-weight-semibold mb-0 text-dark text-sm">
-                {{-- @if ($paginate->total() > 0)
-                    <span>Showing {{ $paginate->firstItem() }} to {{ $paginate->lastItem() }} of {{ $paginate->total() }} result{{ $paginate->total() > 1 ? 's' : '' }}</span>
-                @else
-                    <span>No data to be shown</span>
-                @endif --}}
-            </p>
-            <div class="ms-auto">
-                <button class="btn btn-sm btn-white mb-0">Previous</button>
-                <button class="btn btn-sm btn-white mb-0">Next</button>
-            </div>
-        </div>
-    </div>
-    <div class=" tw__hidden lg:tw__block">
-        <div class=" tw__flex tw__items-center">
-            {{-- Prev Page --}}
-            <button class="btn btn-sm btn-white d-sm-block d-none mb-0" {{ $paginator->onFirstPage() ? 'disabled' : '' }}>Previous</button>
+{{-- Mobile --}}
+<div class=" lg:tw__hidden">
+    <p class="font-weight-semibold text-dark text-sm">
+        @if ($paginator->total() > 0)
+            <span>Showing {{ $paginator->firstItem() }} to {{ $paginator->lastItem() }} of {{ $paginator->total() }} result{{ $paginator->total() > 1 ? 's' : '' }}</span>
+        @else
+            <span>No data to be shown</span>
+        @endif
+    </p>
+    <div class=" tw__flex tw__justify-between">
+        {{-- Prev Page --}}
+        @if ($paginator->onFirstPage())
+            <a href="javascript:void(0)" class="btn btn-sm btn-white mb-0 tw__cursor-not-allowed tw__bg-gray-200" disabled>Previous</a>
+        @else
+            <button type="button" class="btn btn-sm btn-white mb-0" wire:click="previousPage">Previous</button>
+        @endif
 
-            {{-- Specific Page --}}
-            <nav aria-label="..." class="ms-auto">
-                <ul class="pagination pagination-light mb-0">
-                    <li class="page-item active" aria-current="page">
-                        <span class="page-link font-weight-bold">1</span>
-                    </li>
-                    <li class="page-item"><a class="page-link border-0 font-weight-bold" href="javascript:;">2</a></li>
-                    <li class="page-item"><a class="page-link border-0 font-weight-bold d-sm-inline-flex d-none" href="javascript:;">3</a></li>
-                    <li class="page-item"><a class="page-link border-0 font-weight-bold" href="javascript:;">...</a></li>
-                    <li class="page-item"><a class="page-link border-0 font-weight-bold d-sm-inline-flex d-none" href="javascript:;">8</a></li>
-                    <li class="page-item"><a class="page-link border-0 font-weight-bold" href="javascript:;">9</a></li>
-                    <li class="page-item"><a class="page-link border-0 font-weight-bold" href="javascript:;">10</a></li>
-                </ul>
-            </nav>
-
-            {{-- Next Page --}}
-            <button class="btn btn-sm btn-white d-sm-block d-none mb-0 ms-auto" {{ !($paginator->hasMorePages() ? 'disabled' : '') }}>Next</button>
-        </div>
+        {{-- Next Page --}}
+        @if ($paginator->hasMorePages())
+            <button type="button" class="btn btn-sm btn-white mb-0" wire:click="nextPage">Next</button>
+        @else
+            <a href="javascript:void(0)" class="btn btn-sm btn-white mb-0 tw__cursor-not-allowed tw__bg-gray-200" disabled>Next</a>
+        @endif
     </div>
+</div>
+
+{{-- Desktop --}}
+<div class=" tw__hidden lg:tw__block">
+    <div class=" tw__flex tw__items-center">
+        {{-- Prev Page --}}
+        @if ($paginator->onFirstPage())
+            <a href="javascript:void(0)" class="btn btn-sm btn-white d-sm-block d-none mb-0 tw__cursor-not-allowed tw__bg-gray-200" disabled>Previous</a>
+        @else
+            <button type="button" class="btn btn-sm btn-white d-sm-block d-none mb-0" wire:click="previousPage">Previous</button>
+        @endif
+
+        {{-- Pagination Elements --}}
+        <nav aria-label="..." class=" tw__mx-auto">
+            <ul class="pagination pagination-light mb-0">
+                @foreach ($elements as $element)
+                    {{-- "Three Dots" Separator --}}
+                    @if (is_string($element))
+                        <li class="page-item">
+                            <a class="page-link border-0 font-weight-bold" href="javascript:void(0);">...</a>
+                        </li>
+                    @endif
+
+                    {{-- Array Of Links --}}
+                    @if (is_array($element))
+                        @foreach ($element as $page => $url)
+                            @if ($page == $paginator->currentPage())
+                                <li class="page-item active" aria-current="page">
+                                    <span class="page-link font-weight-bold">{{ $page }}</span>
+                                </li>
+                            @else
+                                <li class="page-item">
+                                    <button type="button"  wire:click="gotoPage({{ $page }})" class="page-link border-0 font-weight-bold">{{ $page }}</button>
+                                </li>
+                            @endif
+                        @endforeach
+                    @endif
+                @endforeach
+            </ul>
+        </nav>
+
+        {{-- Next Page --}}
+        @if ($paginator->hasMorePages())
+            <button type="button" class="btn btn-sm btn-white d-sm-block d-none mb-0" wire:click="nextPage">Next</button>
+        @else
+            <a href="javascript:void(0)" class="btn btn-sm btn-white d-sm-block d-none mb-0 tw__cursor-not-allowed tw__bg-gray-200" disabled>Next</a>
+        @endif
+    </div>
+</div>

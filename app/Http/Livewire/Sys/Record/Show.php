@@ -15,7 +15,7 @@ class Show extends Component
     /**
      * Component Variable
      */
-    // 
+    public $recordData = null;
 
     /**
      * Validation
@@ -30,9 +30,14 @@ class Show extends Component
     /**
      * Livewire Mount
      */
-    public function mount()
+    public function mount($uuid)
     {
-        // 
+        $this->menuState = 'record';
+        $this->submenuState = null;
+
+        $this->recordData = \App\Models\Record::where('user_id', \Auth::user()->id)
+            ->where(\DB::raw('BINARY `uuid`'), $uuid)
+            ->firstOrFail();
     }
 
     /**
@@ -40,7 +45,10 @@ class Show extends Component
      */
     public function render()
     {
-        return view('livewire.sys.record.show');
+        return view('livewire.sys.record.show')
+            ->extends('layouts.sys', [
+                'menuState' => $this->menuState,
+            ]);
     }
 
     /**

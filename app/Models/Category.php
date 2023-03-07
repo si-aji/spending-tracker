@@ -275,4 +275,8 @@ class Category extends Model
             ],
         ];
     }
+    public function scopeGetLastTransaction($query)
+    {
+        return $this->record()->orderBy('datetime', 'desc')->first() ?? null;
+    }
 }

@@ -1,4 +1,4 @@
-{{-- <footer class="footer tw__absolute tw__bottom-0 tw__w-full tw__px-6 tw__pb-4">
+<footer class="footer tw__absolute tw__bottom-0 tw__w-full tw__px-6 tw__pb-[4.5rem]">
     <div class="row align-items-center justify-content-lg-between">
         <div class="col-lg-6 mb-lg-0 mb-4">
             <div class="copyright text-center text-xs text-muted text-lg-start">
@@ -32,4 +32,4 @@
             </ul>
         </div>
     </div>
-</footer> --}}
+</footer>

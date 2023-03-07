@@ -102,4 +102,22 @@ class Wallet extends Model
             $model->{'uuid'} = (string) Str::uuid();
         });
     }
+
+    /**
+     * Scope
+     */
+    public function scopeGetBalance()
+    {
+        $balance = $this->record();
+
+        // Sort balance
+        $balance->orderBy('datetime', 'desc')
+            ->orderBy('created_at', 'desc');
+
+        return $balance->sum(\DB::raw('(amount + extra_amount) * IF(type = "expense", -1, 1)'));
+    }
+    public function scopeGetLastTransaction($query)
+    {
+        return $this->record()->orderBy('datetime', 'desc')->first() ?? null;
+    }
 }
