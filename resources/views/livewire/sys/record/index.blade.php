@@ -174,7 +174,7 @@
                     // Child not yet exists, create new data instead using existing data
                     for(i = 0; i < 5; i++){
                         let el = document.createElement('div');
-                        el.classList.add('list-item', 'tw__animate-pulse', 'hover:tw__bg-gray-100');
+                        el.classList.add('list-item', 'tw__animate-pulse');
                         el.dataset.index = i;
                         el.innerHTML = template;
                         container.appendChild(el);
@@ -225,7 +225,7 @@
                 data.forEach((val, index) => {
                     let date = val.datetime;
                     let original = val.datetime;
-                    let recordDate = momentFormated('YYYY-MM-DD HH:mm:ss', 'Asia/Jakarta', date);
+                    let recordDate = momentFormated('YYYY-MM-DD HH:mm:ss', val.timezone, date);
 
                     // Create element based on date
                     let recordWrapper = null;
@@ -302,7 +302,7 @@
                             // Edit Action
                             actionBtn.push(`
                                 <li>
-                                    <a class="dropdown-item tw__text-yellow-400">
+                                    <a href="javascript:void(0)" class="dropdown-item tw__text-yellow-400" data-uuid="${val.uuid}" x-on:click="$wire.emitTo('component.record.record-modal', 'edit', '${val.uuid}')">
                                         <span class=" tw__flex tw__items-center"><i class="bx bx-edit tw__mr-2"></i>Edit</span>
                                     </a>
                                 </li>
@@ -310,7 +310,7 @@
                             // Detail Action
                             actionBtn.push(`
                                 <li>
-                                    <a class="dropdown-item tw__text-blue-400">
+                                    <a href="{{ route('sys.record.index') }}/${val.uuid}" class="dropdown-item tw__text-blue-400">
                                         <span class=" tw__flex tw__items-center"><i class="bx bx-show tw__mr-2"></i>Detail</span>
                                     </a>
                                 </li>
@@ -318,14 +318,14 @@
                             // Delete Action
                             actionBtn.push(`
                                 <li>
-                                    <a class="dropdown-item tw__text-red-400">
+                                    <a href="javascript:void(0)" class="dropdown-item tw__text-red-400">
                                         <span class=" tw__flex tw__items-center"><i class="bx bx-trash tw__mr-2"></i>Remove</span>
                                     </a>
                                 </li>
                             `);
 
                             let action = `
-                                <div class="dropdown no-arrow">
+                                <div class="dropdown no-arrow dropend">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                     </a>

@@ -57,7 +57,7 @@
                                         <small class="invalid-feedback tw__block tw__italic tw__text-xs">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <button type="button" class="btn btn-sm btn-secondary tw__mb-2" x-show="recordType === 'transfer'" x-on:click="switchTransferWallet()">
+                                <button type="button" class="btn btn-sm btn-secondary tw__mb-2" x-show="recordType === 'transfer'" x-on:click="$wire.emit('switchTransferWallet')">
                                     <span class=" tw__flex tw__items-center tw__gap-2">
                                         <span class=" tw__rotate-90"><i class="fa-solid fa-right-left"></i></span>
                                         <span>Switch</span>
@@ -139,8 +139,8 @@
                                 </div>
 
                                 <div x-data="{
-                                    keepOpen: false,
-                                    keepCategory: false
+                                    keepOpen: @entangle('record_keepopen'),
+                                    keepCategory: @entangle('record_keepselectedcategory')
                                 }">
                                     <div class="form-check form-switch tw__flex tw__items-center tw__gap-2">
                                         <input class="form-check-input" type="checkbox" id="input_wallet-keep_open" wire:model.lazy="record_keepopen" x-model="keepOpen" x-on:click="(keepOpen) && keepCategory ? keepCategory = false : ''">
@@ -189,7 +189,9 @@
                 shouldSort: false
             });
             categoryChoice.passedElement.element.addEventListener('showDropdown', (e) => {
-                categoryChoice.clearChoices();
+                if(!(@this.get('record_uuid'))){
+                    categoryChoice.clearChoices();
+                }
                 // Placeholder
                 if (categoryChoice.passedElement.element.length <= 1) {
                     categoryChoice.setChoices([{value: '', label: 'Select Category Data', placeholder: true}], 'value', 'label', true);
@@ -199,7 +201,6 @@
                 let data = @this.categoryList_data;
                 let selectedOption = @this.record_category;
                 let selectOption = [];
-                console.log(data);
 
                 data.forEach((val, index) => {
                     let option = [];
@@ -228,58 +229,9 @@
                 if(selectedOption){
                     categoryChoice.setChoiceByValue(selectedOption.value);
                 } else {
-                    categoryChoice.setChoiceByValue('');
-                }
-            });
-
-            // To Wallet
-            var toElement = document.getElementById('input_record-to_wallet');
-            toWalletChoice = new Choices(toElement, {
-                allowHTML: true,
-                searchPlaceholderValue: 'Search Wallet Data',
-                shouldSort: false
-            });
-            toWalletChoice.passedElement.element.addEventListener('showDropdown', (e) => {
-                toWalletChoice.clearChoices();
-                // Placeholder
-                if (toWalletChoice.passedElement.element.length <= 1) {
-                    toWalletChoice.setChoices([{value: '', label: 'Select Wallet Data', placeholder: true}], 'value', 'label', true);
-                }
-
-                @this.fetchMainWallet();
-                let data = @this.walletList_data;
-                let selectedOption = @this.record_to_wallet;
-                let selectOption = [];
-                console.log(data);
-
-                data.forEach((val, index) => {
-                    let option = [];
-                    option.push({
-                        value: val.uuid,
-                        label: val.name
-                    });
-                    if(val.child){
-                        (val.child).forEach((child, childIndex) => {
-                            option.push({
-                                value: child.uuid,
-                                label: `${val.name} - ${child.name}`
-                            });
-                        });
+                    if(!(@this.get('record_uuid'))){
+                        categoryChoice.setChoiceByValue('');
                     }
-
-                    selectOption.push({
-                        label: val.name,
-                        id: index,
-                        disabled: false,
-                        choices: option
-                    });
-                });
-                // console.log(selectOption);
-                toWalletChoice.setChoices(selectOption);
-                if(selectedOption){
-                    toWalletChoice.setChoiceByValue(selectedOption.value);
-                } else {
-                    toWalletChoice.setChoiceByValue('');
                 }
             });
 
@@ -330,19 +282,64 @@
                 if(selectedOption){
                     fromWalletChoice.setChoiceByValue(selectedOption.value);
                 } else {
-                    fromWalletChoice.setChoiceByValue('');
+                    if(!(@this.get('record_uuid'))){
+                        fromWalletChoice.setChoiceByValue('');
+                    }
                 }
             });
-        }
-        const switchTransferWallet = () => {
-            console.log('Switch selected Wallet');
-            let fromWallet = @this.record_from_wallet;
-            let toWallet = @this.record_to_wallet;
 
-            fromWalletChoice.setChoiceByValue(toWallet.value);
-            @this.set('record_from_wallet', toWallet);
-            toWalletChoice.setChoiceByValue(fromWallet.value);
-            @this.set('record_to_wallet', fromWallet);
+            // To Wallet
+            var toElement = document.getElementById('input_record-to_wallet');
+            toWalletChoice = new Choices(toElement, {
+                allowHTML: true,
+                searchPlaceholderValue: 'Search Wallet Data',
+                shouldSort: false
+            });
+            toWalletChoice.passedElement.element.addEventListener('showDropdown', (e) => {
+                toWalletChoice.clearChoices();
+                // Placeholder
+                if (toWalletChoice.passedElement.element.length <= 1) {
+                    toWalletChoice.setChoices([{value: '', label: 'Select Wallet Data', placeholder: true}], 'value', 'label', true);
+                }
+
+                @this.fetchMainWallet();
+                let data = @this.walletList_data;
+                let selectedOption = @this.record_to_wallet;
+                let selectOption = [];
+                console.log(data);
+
+                data.forEach((val, index) => {
+                    let option = [];
+                    option.push({
+                        value: val.uuid,
+                        label: val.name
+                    });
+                    if(val.child){
+                        (val.child).forEach((child, childIndex) => {
+                            option.push({
+                                value: child.uuid,
+                                label: `${val.name} - ${child.name}`
+                            });
+                        });
+                    }
+
+                    selectOption.push({
+                        label: val.name,
+                        id: index,
+                        disabled: false,
+                        choices: option
+                    });
+                });
+                // console.log(selectOption);
+                toWalletChoice.setChoices(selectOption);
+                if(selectedOption){
+                    toWalletChoice.setChoiceByValue(selectedOption.value);
+                } else {
+                    if(!(@this.get('record_uuid'))){
+                        toWalletChoice.setChoiceByValue('');
+                    }
+                }
+            });
         }
         const generateImask = () => {
             // iMask
@@ -411,9 +408,33 @@
         // Modal Show
         window.addEventListener('recordModal-modalShow', (e) => {
             console.log('Event by Livewire');
+
             // Set default date
             if(@this.get('record_uuid')) {
-                recordModalDateTime.setDate(moment().format('YYYY-MM-DD HH:mm'));
+                console.log(@this.get('fromWalletData'));
+
+                recordModalDateTime.setDate(moment(momentFormated('YYYY-MM-DD HH:mm:ss', @this.get('timezone'), @this.get('record_timestamp'))).format('YYYY-MM-DD HH:mm'));
+                
+                if(@this.get('categoryData')){
+                    categoryChoice.setValue([
+                        { value: @this.get('categoryData').uuid, label: `${@this.get('categoryData').parent ? `${@this.get('categoryData').parent.name} - ` : ''}${@this.get('categoryData').name}` },
+                    ]);
+                }
+
+                if(@this.get('fromWalletData')){
+                    fromWalletChoice.setValue([
+                        { value: @this.get('fromWalletData').uuid, label: `${@this.get('fromWalletData').parent ? `${@this.get('fromWalletData').parent.name} - ` : ''}${@this.get('fromWalletData').name}` },
+                    ]);
+                }
+
+                if(@this.get('toWalletData')){
+                    toWalletChoice.setValue([
+                        { value: @this.get('toWalletData').uuid, label: `${@this.get('toWalletData').parent ? `${@this.get('toWalletData').parent.name} - ` : ''}${@this.get('toWalletData').name}` },
+                    ]);
+                }
+
+                recordModalAmountMask.value = (@this.get('record_amount')).toString()
+                recordModalExtraAmountMask.value = (@this.get('record_extra_amount')).toString()
             } else {
                 recordModalDateTime.setDate(moment().format('YYYY-MM-DD HH:mm'));
             }
@@ -423,7 +444,13 @@
             myModal.show();
 
             el.addEventListener('hidden.bs.modal', (e) => {
-                @this.closeModal()
+                @this.closeModal();
+
+                categoryChoice.setChoiceByValue('');
+                fromWalletChoice.setChoiceByValue('');
+                toWalletChoice.setChoiceByValue('');
+                recordModalAmountMask.value = '';
+                recordModalExtraAmountMask.value = '';
             });
             el.addEventListener('shown.bs.modal', (e) => {
             });
@@ -452,6 +479,34 @@
             recordModalFinalAmountMask.value = '';
 
         });
+        // Switch selected Wallet
+        window.addEventListener('recordModal-switchWallet', (e) => {
+            let fromWallet = @this.get('fromWalletData');
+            let toWallet = @this.get('toWalletData');
+
+            if(fromWallet){
+                toWalletChoice.setValue([
+                    { value: fromWallet.uuid, label: `${fromWallet.parent ? `${fromWallet.parent.name} - ` : ''}${fromWallet.name}` },
+                ]);
+                @this.set('record_to_wallet', fromWallet.uuid);
+            } else {
+                toWalletChoice.setChoiceByValue('');
+                @this.set('record_to_wallet', null);
+            }
+
+            if(toWallet){
+                fromWalletChoice.setValue([
+                    { value: toWallet.uuid, label: `${toWallet.parent ? `${toWallet.parent.name} - ` : ''}${toWallet.name}` },
+                ]);
+                @this.set('record_from_wallet', toWallet.uuid);
+            } else {
+                fromWalletChoice.setChoiceByValue('');
+                @this.set('record_from_wallet', null);
+            }
+
+            @this.set('fromWalletData', null);
+            @this.set('toWalletData', null);
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             generateChoice();
@@ -466,11 +521,6 @@
                 time_24hr: true,
                 minuteIncrement: 1,
                 allowInput: true,
-                // maxDate: moment().format('YYYY-MM-DD 23:59'),
-                // onClose: function(selectedDates, dateStr, instance){
-                //     recordModalDefaultDate = moment(dateStr).format('YYYY-MM-DD HH:mm');
-                //     recordModalDefaultDateTemp = true;
-                // }
             });
 
             // Form

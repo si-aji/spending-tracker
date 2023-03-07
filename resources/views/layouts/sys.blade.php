@@ -17,6 +17,7 @@
 {{-- Styling --}}
 @section('baseCSSPlugins')
     <!-- Corporate UI -->
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
     <link href="{{ mix('assets/corporate-ui/css/corporate-ui-dashboard.css') }}" rel="stylesheet" />
     <link href="{{ mix('assets/corporate-ui/css/siaji.css') }}" rel="stylesheet" />
 
@@ -65,13 +66,14 @@
 @section('baseJsPlugins')
     <!-- Coreporate Ui -->
     <script src="{{ mix('assets/corporate-ui/js/core/popper.min.js') }}"></script>
-    <script src="{{ mix('assets/corporate-ui/js/core/bootstrap.min.js') }}"></script>
+    {{-- <script src="{{ mix('assets/corporate-ui/js/core/bootstrap.min.js') }}"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="{{ mix('assets/corporate-ui/js/plugins/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ mix('assets/corporate-ui/js/plugins/smooth-scrollbar.min.js') }}"></script>
     <script src="{{ mix('assets/corporate-ui/js/plugins/chartjs.min.js') }}"></script>
     <script src="{{ mix('assets/corporate-ui/js/plugins/swiper-bundle.min.js') }}" type="text/javascript"></script>
 	<!-- Control Center for Corporate UI Dashboard: parallax effects, scripts for the example pages etc -->
-	<script src="{{ mix('assets/corporate-ui/js/corporate-ui-dashboard.min.js') }}"></script>
+	{{-- <script src="{{ mix('assets/corporate-ui/js/corporate-ui-dashboard.min.js') }}"></script> --}}
     <script src="{{ mix('assets/corporate-ui/js/siaji.js') }}"></script>
 
     @include('layouts.plugins.imask.js')

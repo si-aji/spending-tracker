@@ -12,10 +12,15 @@
             }
         }
         .dropdown-menu {
+            display: none !important;
             margin-top: 0 !important;
 
             &::before {
                 content: none !important;
+            }
+
+            &.show {
+                display: block !important;
             }
         }
     }

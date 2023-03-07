@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(\Database\Seeders\SeederUser::class);
+        $this->call(\Database\Seeders\SeederWallet::class);
+        $this->call(\Database\Seeders\SeederRecord::class);
     }
 }

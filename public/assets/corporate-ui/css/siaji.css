@@ -9,10 +9,14 @@
   content: none !important;
 }
 .dropdown.no-arrow .dropdown-menu {
+  display: none !important;
   margin-top: 0 !important;
 }
 .dropdown.no-arrow .dropdown-menu::before {
   content: none !important;
+}
+.dropdown.no-arrow .dropdown-menu.show {
+  display: block !important;
 }
 
 .menu-header {

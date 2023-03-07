@@ -26,6 +26,7 @@ Route::group([
         'as' => 'record.'
     ], function(){
         // List
+        Route::get('/{uuid}', \App\Http\Livewire\Sys\Record\Show::class)->name('show');
         Route::get('/', \App\Http\Livewire\Sys\Record\Index::class)->name('index');
     });
 

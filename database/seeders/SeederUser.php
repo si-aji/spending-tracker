@@ -19,5 +19,21 @@ class SeederUser extends Seeder
         \App\Models\Category::truncate();
         \App\Models\User::truncate();
         Schema::enableForeignKeyConstraints();
+
+        $data = [
+            new \App\Models\User([
+                'name' => 'Dwi Aji',
+                'email' => 'dwiaji@mail.tld',
+                'username' => 'dwiaji',
+                'password' => \Hash::make('dwiaji'),
+            ]),
+        ];
+
+        if(count($data)){
+            foreach($data as $user){
+                $user->save();
+                event(new \App\Events\UserRegistered($user));
+            }
+        }
     }
 }

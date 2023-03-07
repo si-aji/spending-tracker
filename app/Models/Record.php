@@ -28,7 +28,8 @@ class Record extends Model
         'date',
         'time',
         'datetime',
-        'note'
+        'note',
+        'timezone'
     ];
 
     /**
