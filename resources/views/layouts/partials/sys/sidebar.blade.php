@@ -62,7 +62,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link tw__flex tw__items-center" href="#">
+                <a class="nav-link tw__flex tw__items-center {{ isset($menuState) ? ($menuState === 'wallet-group' ? 'active' : null) : null }}" href="{{ route('sys.wallet.group.index') }}">
                     <div class="icon icon-shape icon-sm tw__flex tw__justify-center">
                         <i class="fa-solid fa-layer-group"></i>
                         <title>wallet-group</title>

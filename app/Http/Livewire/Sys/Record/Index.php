@@ -72,8 +72,8 @@ class Index extends Component
             ->where('user_id', \Auth::user()->id);
 
         $this->dataRecord = $this->dataRecord->orderBy('datetime', 'desc')
-            ->orderBy('type', 'asc')
-            ->orderBy('created_at', 'desc')
+            // ->orderBy('type', 'asc')
+            // ->orderBy('created_at', 'desc')
             ->get();
         $this->dataRecord = collect($this->dataRecord);
         if($this->filter_selected_month){

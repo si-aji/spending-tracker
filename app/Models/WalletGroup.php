@@ -4,13 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class Wallet extends Model
+class WalletGroup extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -19,12 +17,7 @@ class Wallet extends Model
      */
     protected $fillable = [
         'user_id',
-        'parent_id',
         'name',
-        'type',
-        'starting_balance',
-        'order',
-        'order_main'
     ];
 
     /**
@@ -60,18 +53,7 @@ class Wallet extends Model
      * 
      * @return model
      */
-    public function child()
-    {
-        return $this->hasMany(\App\Models\Wallet::class, 'parent_id');
-    }
-    public function record()
-    {
-        return $this->hasMany(\App\Models\Record::class, 'from_wallet_id');
-    }
-    public function recordRelated()
-    {
-        return $this->hasOne(\App\Models\Record::class, 'to_wallet_id');
-    }
+    //
 
     /**
      * Foreign Key Relation
@@ -82,13 +64,9 @@ class Wallet extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
-    public function parent()
-    {
-        return $this->belongsTo(\App\Models\Wallet::class, 'parent_id');
-    }
     public function walletGroupItem()
     {
-        return $this->belongsToMany(\App\Models\WalletGroup::class, (new \App\Models\WalletGroupItem())->getTable())
+        return $this->belongsToMany(\App\Models\Wallet::class, (new \App\Models\WalletGroupItem())->getTable())
             ->using(\App\Models\WalletGroupItem::class)
             ->withPivot('created_at', 'updated_at')
             ->withTimestamps();
@@ -115,21 +93,15 @@ class Wallet extends Model
      */
     public function scopeGetBalance()
     {
-        $startingBalance = 0;
-        if(!empty($this->starting_balance)){
-            $startingBalance = $this->starting_balance;
+        $balance = 0;
+        if($this->walletGroupItem()->exists()){
+            foreach($this->walletGroupItem as $item){
+                $tempBalance = $item->getBalance();
+
+                $balance += $tempBalance;
+            }
         }
 
-        $balance = $this->record();
-
-        // Sort balance
-        $balance->orderBy('datetime', 'desc')
-            ->orderBy('created_at', 'desc');
-
-        return $startingBalance + $balance->sum(\DB::raw('(amount + extra_amount) * IF(type = "expense", -1, 1)'));
-    }
-    public function scopeGetLastTransaction($query)
-    {
-        return $this->record()->orderBy('datetime', 'desc')->first() ?? null;
+        return $balance;
     }
 }

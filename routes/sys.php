@@ -39,6 +39,9 @@ Route::group([
         Route::get('re-order', \App\Http\Livewire\Sys\Wallet\ReOrder::class)->name('re-order.index');
         // List
         Route::get('/', \App\Http\Livewire\Sys\Wallet\Index::class)->name('index');
+
+        // Group
+        Route::get('group', \App\Http\Livewire\Sys\WalletGroup\Index::class)->name('group.index');
     });
 
     // Category

@@ -230,7 +230,7 @@
                     // Create element based on date
                     let recordWrapper = null;
                     if(!paneEl.querySelector(`.record-wrapper[data-date="${moment(recordDate).format('YYYY-MM-DD')}"]`)){
-                        let recordWrapper = document.createElement('div');
+                        recordWrapper = document.createElement('div');
                         recordWrapper.classList.add('record-wrapper', 'tw__flex', 'tw__gap-4', 'tw__mb-4', 'last:tw__mb-0');
                         recordWrapper.dataset.date = moment(recordDate).format('YYYY-MM-DD');
                         recordWrapper.innerHTML = `
@@ -252,6 +252,8 @@
                     } else {
                         recordWrapper = paneEl.querySelector(`.record-wrapper[data-date="${moment(recordDate).format('YYYY-MM-DD')}"]`);
                     }
+
+                    console.log(recordWrapper);
 
                     // Append Item to 
                     if(recordWrapper){

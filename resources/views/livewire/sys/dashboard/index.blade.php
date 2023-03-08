@@ -10,11 +10,3 @@
 
 <div>
 </div>
-
-@section('js_inline')
-    <script>
-        document.addEventListener('DOMContentLoaded', (e) => {
-            console.log(window.Alpine === undefined);
-        });
-    </script>
-@endsection

@@ -72,6 +72,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\Record::class, 'user_id');
     }
+    public function walletGroup()
+    {
+        return $this->hasMany(\App\Models\WalletGroup::class, 'user_id');
+    }
 
     /**
      * Foreign Key Relation

@@ -95,6 +95,33 @@ Plugins
         .choices__list {
             padding-top: 0;
             padding-bottom: 0;
+
+            &.choices__list--multiple {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: .25rem;
+
+                .choices__item {
+                    margin: 0;
+                    border-radius: .3rem;
+                    background-color: #774dd3;
+                    border-width: 0;
+                    border-color: unset;
+                }
+
+                &:has(> .choices__item--selectable){
+                    margin-bottom: .5rem;
+                }
+            }
+        }
+        .choices__input {
+            display: block;
+            background-color: unset;
+            margin: 0;
+            min-width: unset!important;
+            padding: 0;
+            width: unset!important;
         }
     }
 

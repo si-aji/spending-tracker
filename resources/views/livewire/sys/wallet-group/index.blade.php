@@ -1,43 +1,33 @@
-@section('parentTitle', 'Wallet List')
+@section('parentTitle', 'Wallet Group: List')
 @section('breadcrumb')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent mb-1 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ route('sys.index') }}">Dashboard</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Wallet List</li>
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ route('sys.wallet.index') }}">Wallet</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Wallet Group</li>
         </ol>
     </nav>
 @endsection
 
 <div>
-    {{-- The whole world belongs to you. --}}
+    {{-- The best athlete wants his opponent at his best. --}}
     <div class="card border">
         <div class="card-header border-bottom pb-0">
             <div class="d-sm-flex align-items-center">
                 <div>
-                    <h6 class="font-weight-semibold text-lg mb-0">Wallet list</h6>
-                    <p class="text-sm">See information about all wallet</p>
+                    <h6 class="font-weight-semibold text-lg mb-0">Wallet Group</h6>
+                    <p class="text-sm">Group your wallet to know sum of balance amount</p>
                 </div>
                 <div class="ms-auto d-flex">
-                    <a href="{{ route('sys.wallet.re-order.index') }}" class="btn btn-sm btn-white me-2">
-                        Re-order
-                    </a>
-                    <button type="button" class="btn btn-sm btn-dark btn-icon tw__flex tw__items-center tw__gap-2" wire:click="$emitTo('component.wallet.wallet-modal', 'showModal')">
+                    <button type="button" class="btn btn-sm btn-dark btn-icon tw__flex tw__items-center tw__gap-2" wire:click="$emitTo('component.wallet-group.wallet-group-modal', 'showModal')">
                         <i class="fa-solid fa-plus"></i>
                         <span class="btn-inner--text">Add new</span>
                     </button>
                 </div>
             </div>
         </div>
-        <div class="card-body tw__px-0 tw__py-0">
+        <div class="card-body p-0">
             <div class="border-bottom py-3 px-3 d-sm-flex align-items-center">
-                <div class="btn-group tw__mb-4 md:tw__mb-0" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="wallet_status" id="wallet_status-all" value="all" autocomplete="off" wire:model.lazy="wallet_filter_state">
-                    <label class="btn btn-white px-3 mb-0" for="wallet_status-all">All</label>
-                    <input type="radio" class="btn-check" name="wallet_status" id="wallet_status-active" value="active" autocomplete="off" wire:model.lazy="wallet_filter_state">
-                    <label class="btn btn-white px-3 mb-0" for="wallet_status-active">Active</label>
-                    <input type="radio" class="btn-check" name="wallet_status" id="wallet_status-archive" value="archive" autocomplete="off" wire:model.lazy="wallet_filter_state">
-                    <label class="btn btn-white px-3 mb-0" for="wallet_status-archive">Archive</label>
-                </div>
                 <div class="input-group w-sm-45 w-lg-25 ms-auto">
                     <span class="input-group-text text-body">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -52,22 +42,24 @@
                         <tr>
                             <th class="text-secondary text-sm font-weight-semibold opacity-7 ps-2">Name</th>
                             <th class="text-secondary text-sm font-weight-semibold opacity-7 ps-2">Balance</th>
-                            <th class="text-secondary text-sm font-weight-semibold opacity-7 ps-2">Last Record</th>
+                            <th class="text-secondary text-sm font-weight-semibold opacity-7 ps-2">Item</th>
                             <th class="text-secondary text-sm font-weight-semibold opacity-7 ps-2"></th>
                         </tr>
                     </thead>
-                    <tbody id="walletList-container" wire:ignore></tbody>
+                    <tbody id="walletGroup-container" wire:ignore></tbody>
                 </table>
             </div>
         </div>
-        <div class="card-footer">
-            {{ $paginate->links('vendor.livewire.sys-paginate') }}
-        </div>
+        @if (isset($paginate))
+            <div class="card-footer">
+                {{ $paginate->links('vendor.livewire.sys-paginate') }}
+            </div>
+        @endif
     </div>
 </div>
 
 @section('content_modal')
-    @livewire('component.wallet.wallet-modal', ['user' => \Auth::user()], key(\Auth::user()->id))
+    @livewire('component.wallet-group.wallet-group-modal', ['user' => \Auth::user()], key(\Auth::user()->id))
 @endsection
 
 @section('js_inline')
@@ -75,7 +67,7 @@
         let loadSkeleton = false;
         const loadDataSkeleton = () => {
             console.log('Preparation for Content Skeleton');
-            let container = document.getElementById('walletList-container');
+            let container = document.getElementById('walletGroup-container');
 
             console.log(container);
             if(container){
@@ -85,22 +77,16 @@
                             <div>
                                 <span class="tw__bg-gray-300 tw__rounded tw__w-20 tw__h-5 tw__flex"></span>
                             </div>
-                            <span class=" tw__mt-2">
-                                <span class="tw__bg-gray-300 tw__rounded tw__w-48 tw__h-5 tw__flex"></span>
-                            </span>
                         </div>
                     </td>
                     <td>
                         <span class="tw__bg-gray-300 tw__rounded tw__w-24 tw__h-5 tw__flex"></span>
                     </td>
                     <td>
-                        <div class=" tw__grid tw__grid-flow-row">
-                            <div>
-                                <span class="tw__bg-gray-300 tw__rounded tw__w-20 tw__h-5 tw__flex"></span>
-                            </div>
-                            <span class=" tw__mt-2">
-                                <span class="tw__bg-gray-300 tw__rounded tw__w-48 tw__h-5 tw__flex"></span>
-                            </span>
+                        <div class=" tw__flex tw__flex-wrap tw__gap-2">
+                            <span class="tw__bg-gray-300 tw__rounded tw__w-20 tw__h-5 tw__flex"></span>
+                            <span class="tw__bg-gray-300 tw__rounded tw__w-20 tw__h-5 tw__flex"></span>
+                            <span class="tw__bg-gray-300 tw__rounded tw__w-20 tw__h-5 tw__flex"></span>
                         </div>
                     </td>
                     <td>
@@ -129,10 +115,10 @@
 
         loadDataSkeleton();
         document.addEventListener('DOMContentLoaded', () => {
-            window.dispatchEvent(new Event('walletListLoadData'));
+            window.dispatchEvent(new Event('walletGroupLoadData'));
 
-            if(document.getElementById('wallet-modal')){
-                document.getElementById('wallet-modal').addEventListener('hidden.bs.modal', (e) => {
+            if(document.getElementById('walletGroup-modal')){
+                document.getElementById('walletGroup-modal').addEventListener('hidden.bs.modal', (e) => {
                     loadDataSkeleton();
                     Livewire.emit('refreshComponent');
                 });
@@ -145,18 +131,18 @@
             }
         });
 
-        window.addEventListener('walletListLoadData', () => {
+        window.addEventListener('walletGroupLoadData', () => {
             console.log('Generate List');
-            if(document.getElementById('walletList-container')){
+            if(document.getElementById('walletGroup-container')){
                 generateList();
             }
         });
         function generateList(){
             // Get data from Component
-            let data = @this.get('dataWallet');
+            let data = @this.get('dataWalletGroup');
             console.log(data);
 
-            let paneEl = document.getElementById('walletList-container');
+            let paneEl = document.getElementById('walletGroup-container');
             if(data.length > 0){
                 let existingItem = paneEl.querySelectorAll('.list-item');
                 console.log(existingItem);
@@ -180,27 +166,21 @@
                         }
 
                         // Variable
-                        let walletName = `${val.name}`;
-                        if(val.parent){
-                            walletName = `${val.parent.name} - ${val.name}`;
-                        }
-                        let lastTransaction = `-`;
-                        if(val.last_transaction && Object.keys(val.last_transaction).length > 0){
-                            let timezone = null;
-                            if(moment.tz.guess()){
-                                timezone = moment.tz.guess();
+                        let item = [];
+                        let maxShownItem = 2;
+                        (val.wallet_group_item).some((groupItem, groupIndex) => {
+                            item.push(`${groupItem.parent ? `${groupItem.parent.name} - ` : ''}${groupItem.name}`);
+
+                            if(parseInt(groupIndex) + 1 === maxShownItem){
+                                let leftover = (val.wallet_group_item).length - maxShownItem;
+                                if(leftover > 0){
+                                    item.push(`and ${leftover} more`);
+                                }
+
+                                return true;
                             }
-                            let recordDate = momentFormated('YYYY-MM-DD HH:mm:ss', timezone, val.last_transaction.datetime);
-                            
-                            lastTransaction = `
-                                <div class=" tw__grid tw__grid-flow-row">
-                                    <div>
-                                        <span class="badge badge-sm border border-${val.last_transaction.type === 'expense' ? 'danger' : 'success'} text-${val.last_transaction.type === 'expense' ? 'danger' : 'success'} bg-${val.last_transaction.type === 'expense' ? 'danger' : 'success'}">${val.last_transaction.to_wallet_id ? 'Transfer - ' : ''}${ucwords(val.last_transaction.type)}</span>
-                                    </div>
-                                    <span class="text-sm tw__mt-2"><span>${formatRupiah(parseFloat(val.last_transaction.amount) + parseFloat(val.last_transaction.extra_amount))}</span> at ${moment(recordDate).format('DD MMM, YYYY / HH:mm')} <small>(${moment().tz(timezone ?? 'Asia/Jakarta').format('Z')})</small></span>
-                                </div>
-                            `;
-                        }
+                        });
+                        
 
                         // Generate Action Button
                         let actionButton = [];
@@ -213,7 +193,7 @@
                             </a>
                         `);
                         actionButton.push(`
-                            <a href="javascript:void(0);" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" data-bs-title="Edit Wallet" x-on:click="$wire.emitTo('component.wallet.wallet-modal', 'edit', '${val.uuid}')">
+                            <a href="javascript:void(0);" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" data-bs-title="Edit Wallet" x-on:click="$wire.emitTo('component.wallet-group.wallet-group-modal', 'edit', '${val.uuid}')">
                                 <span class=" tw__flex tw__items-center tw__gap-1">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     <span>Edit</span>
@@ -223,13 +203,13 @@
                         // Create content
                         wrapper.innerHTML = `
                             <td>
-                                <span class="text-sm text-dark font-weight-semibold">${walletName}</span>
+                                <span class="text-sm text-dark font-weight-semibold">${val.name}</span>
                             </td>
                             <td>
                                 <strong class="text-sm">${formatRupiah(val.balance)}</strong>
                             </td>
                             <td>
-                                ${lastTransaction}
+                                <strong class="text-sm">${item.join(', ')}</strong>
                             </td>
                             <td>
                                 <div class=" tw__flex tw__items-center tw__gap-2">
@@ -249,6 +229,6 @@
 
                 }
             }
-        }
+        };
     </script>
 @endsection
