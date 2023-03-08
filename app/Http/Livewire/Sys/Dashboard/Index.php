@@ -44,6 +44,7 @@ class Index extends Component
         return view('livewire.sys.dashboard.index')
             ->extends('layouts.sys', [
                 'menuState' => $this->menuState,
+                'submenuState' => $this->submenuState
             ]);
     }
 

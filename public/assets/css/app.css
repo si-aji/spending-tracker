@@ -880,6 +880,9 @@ video {
   --tw-text-opacity: 1 !important;
   color: rgb(250 204 21 / var(--tw-text-opacity)) !important;
 }
+.tw__opacity-50 {
+  opacity: 0.5 !important;
+}
 .before\:tw__right-\[40px\]::before {
   content: var(--tw-content) !important;
   right: 40px !important;

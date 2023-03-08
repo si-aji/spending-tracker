@@ -42,8 +42,8 @@ class Index extends Component
      */
     public function mount()
     {
-        $this->menuState = 'category';
-        $this->submenuState = null;
+        $this->menuState = 'account';
+        $this->submenuState = 'category';
     }
 
     /**
@@ -84,6 +84,7 @@ class Index extends Component
             ])
             ->extends('layouts.sys', [
                 'menuState' => $this->menuState,
+                'submenuState' => $this->submenuState
             ]);
     }
 

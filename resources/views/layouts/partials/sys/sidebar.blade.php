@@ -8,101 +8,52 @@
 
     <div class="collapse navbar-collapse px-4 w-auto xl:tw__h-[calc(100vh-80px)]" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link tw__flex tw__items-center {{ isset($menuState) ? ($menuState === 'dashboard' ? 'active' : null) : null }}" href="{{ route('sys.index') }}">
-                    <div class="icon icon-shape icon-sm tw__flex tw__justify-center">
-                        <i class="fa-solid fa-house"></i>
-                        <title>dashboard</title>
-                    </div>
-                    <span class="nav-link-text ms-1">Dashboard</span>
-                </a>
-            </li>
+            @php
+                $sidebarmenu = config('siaji.view.sys.sidebar');
+            @endphp
 
-            <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">Feature</span>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link tw__flex tw__items-center {{ isset($menuState) ? ($menuState === 'record' ? 'active' : null) : null }}" href="{{ route('sys.record.index') }}">
-                    <div class="icon icon-shape icon-sm tw__flex tw__justify-center">
-                        <i class="fa-solid fa-receipt"></i>
-                        <title>record</title>
-                    </div>
-                    <span class="nav-link-text ms-1">Record</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link tw__flex tw__items-center" href="#">
-                    <div class="icon icon-shape icon-sm tw__flex tw__justify-center">
-                        <i class="fa-solid fa-clock"></i>
-                        <title>planned-payment</title>
-                    </div>
-                    <span class="nav-link-text ms-1">Planned Payment</span>
-                </a>
-            </li>
+            @if (!empty($sidebarmenu) && is_array($sidebarmenu))
+                @foreach ($sidebarmenu as $menu)
+                    @if ($menu['is_header'])
+                        {{-- Header --}}
+                        <li class="menu-header small text-uppercase">
+                            <span class="menu-header-text">{{ $menu['name'] }}</span>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link tw__flex tw__items-center {{ isset($menu['is_disabled']) && $menu['is_disabled'] ? 'tw__opacity-50 tw__cursor-not-allowed' : '' }} {{ isset($menuState) && isset($menu['state']) && !empty($menu['state']) ? ($menuState === $menu['state'] ? 'active' : null) : null }}" href="{{ isset($menu['route']) && !empty($menu['route']) ? route($menu['route']) : 'javascript:void(0)' }}">
+                                <div class="icon icon-shape icon-sm tw__flex tw__justify-center">
+                                    @if (isset($menu['icon']) && !empty($menu['icon']))
+                                        <i class="{{ $menu['icon'] }}"></i>
+                                    @endif
+                                    <title>{{ strtolower(str_replace(' ', '-', $menu['name'])) }}</title>
+                                </div>
+                                <span class="nav-link-text ms-1">{{ $menu['name'] }}</span>
+                            </a>
+                        </li>
 
-            <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">Master Data</span>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link tw__flex tw__items-center" href="#">
-                    <div class="icon icon-shape icon-sm tw__flex tw__justify-center">
-                        <i class="fa-solid fa-clipboard"></i>
-                        <title>record-template</title>
-                    </div>
-                    <span class="nav-link-text ms-1">Record Template</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link tw__flex tw__items-center {{ isset($menuState) ? ($menuState === 'wallet' ? 'active' : null) : null }}" href="{{ route('sys.wallet.index') }}">
-                    <div class="icon icon-shape icon-sm tw__flex tw__justify-center">
-                        <i class="fa-solid fa-wallet"></i>
-                        <title>wallet</title>
-                    </div>
-                    <span class="nav-link-text ms-1">Wallet</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link tw__flex tw__items-center {{ isset($menuState) ? ($menuState === 'wallet-group' ? 'active' : null) : null }}" href="{{ route('sys.wallet.group.index') }}">
-                    <div class="icon icon-shape icon-sm tw__flex tw__justify-center">
-                        <i class="fa-solid fa-layer-group"></i>
-                        <title>wallet-group</title>
-                    </div>
-                    <span class="nav-link-text ms-1">Wallet Group</span>
-                </a>
-            </li>
-
-            <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">MISCELLANEOUS</span>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link tw__flex tw__items-center {{ isset($menuState) ? (in_array($menuState, ['category']) ? 'active' : null) : null }}" href="javascript:void(0)">
-                    <div class="icon icon-shape icon-sm tw__flex tw__justify-center">
-                        <i class="fa-solid fa-circle-user"></i>
-                        <title>account</title>
-                    </div>
-                    <span class="nav-link-text ms-1">Account</span>
-                </a>
-            </li>
-            <li class="nav-item border-start my-0 tw__relative">
-                <a class="nav-link tw__flex tw__items-center" href="#">
-                    <span class="nav-link-text ms-1">Profile</span>
-                </a>
-            </li>
-            <li class="nav-item border-start my-0 tw__relative">
-                <a class="nav-link tw__flex tw__items-center {{ isset($menuState) ? ($menuState === 'category' ? 'active' : null) : null }}" href="{{ route('sys.category.index') }}">
-                    <span class="nav-link-text ms-1">Category</span>
-                </a>
-            </li>
-            <li class="nav-item border-start my-0 tw__relative">
-                <a class="nav-link tw__flex tw__items-center" href="#">
-                    <span class="nav-link-text ms-1">Tags</span>
-                </a>
-            </li>
-            <li class="nav-item border-start my-0 tw__relative">
-                <a class="nav-link tw__flex tw__items-center" href="#">
-                    <span class="nav-link-text ms-1">Preference</span>
-                </a>
-            </li>
+                        @if (isset($menu['sub']) && is_array($menu['sub']) && count($menu['sub']) > 0)
+                            @foreach ($menu['sub'] as $sub)
+                                <li class="nav-item border-start my-0 tw__relative">
+                                    <a class="nav-link tw__flex tw__items-center {{ isset($sub['is_disabled']) && $sub['is_disabled'] ? 'tw__opacity-50 tw__cursor-not-allowed' : '' }} {{ isset($submenuState) && isset($sub['state']) && !empty($sub['state']) ? ($submenuState === $sub['state'] ? 'active' : null) : null }}" href="{{ isset($sub['route']) && !empty($sub['route']) ? route($sub['route']) : 'javascript:void(0)' }}">
+                                        <span class="nav-link-text ms-1">{{ $sub['name'] }}</span>
+                                    </a>
+                                </li>
+                            @endforeach
+                        @endif
+                    @endif
+                @endforeach
+            @else
+                <li class="nav-item">
+                    <a class="nav-link tw__flex tw__items-center {{ isset($menuState) ? ($menuState === 'dashboard' ? 'active' : null) : null }}" href="{{ route('sys.index') }}">
+                        <div class="icon icon-shape icon-sm tw__flex tw__justify-center">
+                            <i class="fa-solid fa-house"></i>
+                            <title>dashboard</title>
+                        </div>
+                        <span class="nav-link-text ms-1">Dashboard</span>
+                    </a>
+                </li>
+            @endif
         </ul>
     </div>
 </aside>

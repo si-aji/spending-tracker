@@ -3627,5 +3627,114 @@ return [
                 "utc" => "+14:00"
             ]
         ]
+    ],
+    'view' => [
+        'sys' => [
+            'sidebar' => [
+                [
+                    'name' => 'Dashboard',
+                    'icon' => 'fa-solid fa-house',
+                    'route' => 'sys.index',
+                    'state' => null,
+                    'sub' => [],
+                    'is_header' => false,
+                    'is_disabled' => false,
+                ], [
+                    'name' => 'Feature',
+                    'icon' => null,
+                    'route' => null,
+                    'state' => null,
+                    'sub' => [],
+                    'is_header' => true,
+                    'is_disabled' => false,
+                ], [
+                    'name' => 'Record',
+                    'icon' => 'fa-solid fa-receipt',
+                    'route' => 'sys.record.index',
+                    'state' => 'record',
+                    'sub' => [],
+                    'is_header' => false,
+                    'is_disabled' => false,
+                ], [
+                    'name' => 'Planned Payment',
+                    'icon' => 'fa-solid fa-clock',
+                    'route' => null,
+                    'state' => null,
+                    'sub' => [],
+                    'is_header' => false,
+                    'is_disabled' => true,
+                ], [
+                    'name' => 'Master Data',
+                    'icon' => null,
+                    'route' => null,
+                    'state' => null,
+                    'sub' => [],
+                    'is_header' => true,
+                    'is_disabled' => false,
+                ], [
+                    'name' => 'Template',
+                    'icon' => 'fa-solid fa-clipboard',
+                    'route' => null,
+                    'state' => null,
+                    'sub' => [],
+                    'is_header' => false,
+                    'is_disabled' => true,
+                ], [
+                    'name' => 'Wallet',
+                    'icon' => 'fa-solid fa-wallet',
+                    'route' => 'sys.wallet.index',
+                    'state' => 'wallet',
+                    'sub' => [],
+                    'is_header' => false,
+                    'is_disabled' => false,
+                ], [
+                    'name' => 'Wallet Group',
+                    'icon' => 'fa-solid fa-layer-group',
+                    'route' => 'sys.wallet.group.index',
+                    'state' => 'wallet-group',
+                    'sub' => [],
+                    'is_header' => false,
+                    'is_disabled' => false,
+                ], [
+                    'name' => 'Miscellaneous',
+                    'icon' => null,
+                    'route' => null,
+                    'state' => null,
+                    'sub' => [],
+                    'is_header' => true,
+                    'is_disabled' => false,
+                ], [
+                    'name' => 'Account',
+                    'icon' => 'fa-solid fa-circle-user',
+                    'route' => null,
+                    'state' => 'account',
+                    'sub' => [
+                        [
+                            'name' => 'Category',
+                            'route' => 'sys.category.index',
+                            'state' => 'category',
+                            'is_disabled' => false,
+                        ], [
+                            'name' => 'Tags',
+                            'route' => null,
+                            'state' => null,
+                            'is_disabled' => true,
+                        ], [
+                            'name' => 'Preference',
+                            'route' => null,
+                            'state' => null,
+                            'is_disabled' => true,
+                        ], [
+                            'name' => 'Profile',
+                            'route' => null,
+                            'state' => null,
+                            'is_disabled' => true,
+                        ], 
+                    ],
+                    'is_header' => false,
+                    'is_disabled' => false,
+                ], 
+            ]
+        ]
     ]
 ];

@@ -48,6 +48,7 @@ class Show extends Component
         return view('livewire.sys.record.show')
             ->extends('layouts.sys', [
                 'menuState' => $this->menuState,
+                'submenuState' => $this->submenuState
             ]);
     }
 

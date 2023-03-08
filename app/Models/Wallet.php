@@ -130,6 +130,13 @@ class Wallet extends Model
     }
     public function scopeGetLastTransaction($query)
     {
-        return $this->record()->orderBy('datetime', 'desc')->first() ?? null;
+        $result = [];
+
+        $data = $this->record()->orderBy('datetime', 'desc')->first();
+        if(!empty($data)){
+            $result = $data;
+        }
+
+        return $result;
     }
 }

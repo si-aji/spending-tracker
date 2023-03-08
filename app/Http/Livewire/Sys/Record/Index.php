@@ -60,6 +60,7 @@ class Index extends Component
             ])
             ->extends('layouts.sys', [
                 'menuState' => $this->menuState,
+                'submenuState' => $this->submenuState
             ]);
     }
 

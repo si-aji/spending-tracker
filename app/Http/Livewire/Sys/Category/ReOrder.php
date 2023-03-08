@@ -50,6 +50,7 @@ class ReOrder extends Component
         return view('livewire.sys.category.re-order')
             ->extends('layouts.sys', [
                 'menuState' => $this->menuState,
+                'submenuState' => $this->submenuState
             ]);
     }
 
