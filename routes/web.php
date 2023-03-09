@@ -13,17 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+$register = false;
+
 // Auth
 Route::group([
     'prefix' => 'auth',
     'as' => 'auth.',
     'middleware' => ['web']
-], function(){
+], function() use ($register){
     Route::group([
         'middleware' => ['guest']
-    ], function(){
+    ], function() use ($register){
         Route::get('login', \App\Http\Livewire\Auth\Login::class)->name('login');
-        Route::get('register', \App\Http\Livewire\Auth\Register::class)->name('register');
+
+        if($register){
+            Route::get('register', \App\Http\Livewire\Auth\Register::class)->name('register');
+        }
     });
     
     Route::group([
@@ -33,6 +38,4 @@ Route::group([
     });
 });
 
-Route::get('/', function(){
-    return response()->json('ok');
-});
+Route::get('/', \App\Http\Livewire\Public\Homepage\Index::class)->name('index');

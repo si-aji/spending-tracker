@@ -59,12 +59,15 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                                <p class="mb-4 text-xs mx-auto">
-                                    Don't have an account?
-                                    <a href="{{ route('auth.register') }}" class="text-dark font-weight-bold">Sign up</a>
-                                </p>
-                            </div>
+
+                            @if (\Route::has('auth.register'))
+                                <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                                    <p class="mb-4 text-xs mx-auto">
+                                        Don't have an account?
+                                        <a href="{{ route('auth.register') }}" class="text-dark font-weight-bold">Sign up</a>
+                                    </p>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-6">

@@ -67,3 +67,27 @@ function shortNumber($number)
     
     return round($number, 2).$units[$i];
 }
+
+/**
+ * Generate Random String
+ */
+function generateRandomString($length = 6)
+{
+    $numeric = range(0, 9);
+    $alpha = range('a', 'z');
+    $alpha_b = range('A', 'Z');
+
+    // Join Array
+    $mix = implode('', $numeric).implode('', $alpha).implode('', $alpha_b);
+    // Shuffle Joined Array
+    $mixShuffle = str_shuffle($mix);
+
+    // Generate Random Character
+    $string = [];
+    for ($i = 0; $i < $length; $i++) {
+        str_shuffle($mixShuffle);
+        array_push($string, $mixShuffle[rand(0, $length - 1)]);
+    }
+
+    return str_shuffle(implode('', $string));
+}

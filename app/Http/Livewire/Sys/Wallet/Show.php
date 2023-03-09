@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire\Public\Homepage;
+namespace App\Http\Livewire\Sys\Wallet;
 
 use Livewire\Component;
 
-class Index extends Component
+class Show extends Component
 {
     /**
      * Sidebar Configuration
@@ -40,8 +40,7 @@ class Index extends Component
      */
     public function render()
     {
-        return view('livewire.public.homepage.index')
-            ->extends('layouts.app');
+        return view('livewire.sys.wallet.show');
     }
 
     /**
