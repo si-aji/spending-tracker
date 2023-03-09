@@ -44,7 +44,7 @@ jobs:
             pwd
             echo "========= Sync Public Directory (Except index.php, etc)"
             cd ~/public_html/spentra
-            rm -rf assets mix-manifest.json
+            rm -rf assets mix-manifest.json vendor
             cd ~/public_html/spentra/main-apps
             shopt -s extglob
             mv ~/public_html/spentra/main-apps/public/!(index.php|files|livewire-tmp|.htaccess) ~/public_html/spentra
