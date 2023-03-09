@@ -837,6 +837,10 @@ video {
 .tw__align-middle {
   vertical-align: middle !important;
 }
+.tw__text-2xl {
+  font-size: 1.5rem !important;
+  line-height: 2rem !important;
+}
 .tw__text-3xl {
   font-size: 1.875rem !important;
   line-height: 2.25rem !important;
@@ -860,10 +864,6 @@ video {
 .tw__text-xs {
   font-size: 0.75rem !important;
   line-height: 1rem !important;
-}
-.tw__text-2xl {
-  font-size: 1.5rem !important;
-  line-height: 2rem !important;
 }
 .tw__font-bold {
   font-weight: 700 !important;
@@ -958,6 +958,10 @@ video {
 
   .md\:tw__mb-0 {
     margin-bottom: 0px !important;
+  }
+
+  .md\:tw__mt-0 {
+    margin-top: 0px !important;
   }
 
   .md\:tw__block {

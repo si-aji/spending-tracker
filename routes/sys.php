@@ -38,6 +38,7 @@ Route::group([
         // Re Order
         Route::get('re-order', \App\Http\Livewire\Sys\Wallet\ReOrder::class)->name('re-order.index');
         // Group
+        Route::get('group/{uuid}', \App\Http\Livewire\Sys\WalletGroup\Show::class)->name('group.show');
         Route::get('group', \App\Http\Livewire\Sys\WalletGroup\Index::class)->name('group.index');
         
         // List

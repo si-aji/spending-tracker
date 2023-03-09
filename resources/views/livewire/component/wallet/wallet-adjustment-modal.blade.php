@@ -79,7 +79,7 @@
             console.log('Get Balance');
 
             let data = @this.get('wallet_amount');
-            console.log(data);
+            console.log(data.toString());
             walletAdjustmentModalAmountMask.value = data.toString();
         });
 
@@ -90,9 +90,8 @@
                     mask: Number,
                     thousandsSeparator: ',',
                     scale: 2,  // digits after point, 0 for integers
-                    signed: false,  // disallow negative
+                    signed: true,  // disallow negative
                     radix: '.',  // fractional delimiter
-                    min: 0,
                 });
                 walletAdjustmentModalAmountMask.on('complete', (e) => {
                     @this.wallet_amount = walletAdjustmentModalAmountMask.unmaskedValue;

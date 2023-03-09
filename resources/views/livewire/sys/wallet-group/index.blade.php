@@ -185,7 +185,7 @@
                         // Generate Action Button
                         let actionButton = [];
                         actionButton.push(`
-                            <a href="javascript:void(0);" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" data-bs-title="Show Detail">
+                            <a href="{{ route('sys.wallet.group.index') }}/${val.uuid}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" data-bs-title="Show Detail">
                                 <span class=" tw__flex tw__items-center tw__gap-1">
                                     <i class="fa-solid fa-eye"></i>
                                     <span>Detail</span>
