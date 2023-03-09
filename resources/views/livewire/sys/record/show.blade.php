@@ -46,13 +46,13 @@
                         {{-- Wallet --}}
                         <div class=" tw__grid tw__grid-flow-row tw__gap-1">
                             <strong>Wallet</strong>
-                            <a href="javascript:void(0)">{{ ($recordData->fromWallet->parent()->exists() ? $recordData->fromWallet->parent->name.' - ' : '').$recordData->fromWallet->name }}</a>
+                            <a href="{{ route('sys.wallet.show', $recordData->fromWallet->uuid) }}">{{ ($recordData->fromWallet->parent()->exists() ? $recordData->fromWallet->parent->name.' - ' : '').$recordData->fromWallet->name }}</a>
                         </div>
                         {{-- Wallet --}}
                         <div class=" tw__grid tw__grid-flow-row tw__gap-1">
                             <strong>To Wallet</strong>
                             @if (!empty($recordData->to_wallet_id))
-                                <a href="javascript:void(0)">{{ ($recordData->toWallet->parent()->exists() ? $recordData->toWallet->parent->name.' - ' : '').$recordData->toWallet->name }}</a>
+                                <a href="{{ route('sys.wallet.show', $recordData->toWallet->uuid) }}">{{ ($recordData->toWallet->parent()->exists() ? $recordData->toWallet->parent->name.' - ' : '').$recordData->toWallet->name }}</a>
                             @else
                                 <span>-</span>
                             @endif

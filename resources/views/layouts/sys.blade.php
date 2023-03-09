@@ -36,7 +36,7 @@
     <main class="main-content position-relative h-100 tw__min-h-screen border-radius-lg tw__pb-40 lg:tw__pb-24">
         @include('layouts.partials.sys.navbar')
 
-        <div class="container py-4 ">
+        <div class="container-fluid py-4 ">
             @yield('content')
         </div>
 

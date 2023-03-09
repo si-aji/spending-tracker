@@ -205,7 +205,7 @@
                         // Generate Action Button
                         let actionButton = [];
                         actionButton.push(`
-                            <a href="javascript:void(0);" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" data-bs-title="Show Detail">
+                            <a href="{{ route('sys.wallet.index') }}/${val.uuid}" class="text-secondary text-xs" data-bs-toggle="tooltip" data-bs-title="Show Detail">
                                 <span class=" tw__flex tw__items-center tw__gap-1">
                                     <i class="fa-solid fa-eye"></i>
                                     <span>Detail</span>
@@ -213,7 +213,7 @@
                             </a>
                         `);
                         actionButton.push(`
-                            <a href="javascript:void(0);" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" data-bs-title="Edit Wallet" x-on:click="$wire.emitTo('component.wallet.wallet-modal', 'edit', '${val.uuid}')">
+                            <a href="javascript:void(0);" class="text-secondary text-xs" data-bs-toggle="tooltip" data-bs-title="Edit Wallet" x-on:click="$wire.emitTo('component.wallet.wallet-modal', 'edit', '${val.uuid}')">
                                 <span class=" tw__flex tw__items-center tw__gap-1">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     <span>Edit</span>
@@ -226,7 +226,7 @@
                                 <span class="text-sm text-dark font-weight-semibold">${walletName}</span>
                             </td>
                             <td>
-                                <strong class="text-sm">${formatRupiah(val.balance)}</strong>
+                                <span class="text-sm">${formatRupiah(val.balance)}</span>
                             </td>
                             <td>
                                 ${lastTransaction}
