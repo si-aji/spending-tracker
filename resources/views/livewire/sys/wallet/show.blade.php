@@ -48,7 +48,7 @@
                                     @endif
                                 </div>
                                 <div class="">
-                                    <button class="btn btn-sm btn-primary tw__uppercase tw__mb-0">Adjustment</button>
+                                    <button class="btn btn-sm btn-primary tw__uppercase tw__mb-0" wire:click="$emitTo('component.wallet.wallet-adjustment-modal', 'edit', '{{ $data->uuid }}')">Adjustment</button>
                                 </div>
                             </div>
                         </div>
@@ -99,6 +99,10 @@
         </div>
     </div>
 </div>
+
+@section('content_modal')
+    @livewire('component.wallet.wallet-adjustment-modal', ['user' => \Auth::user()], key(\Auth::user()->id))
+@endsection
 
 @section('js_inline')
     <script>
@@ -167,6 +171,13 @@
             window.dispatchEvent(new Event('recordListLoadData'));
             if(document.getElementById('record-modal')){
                 document.getElementById('record-modal').addEventListener('hidden.bs.modal', (e) => {
+                    loadDataSkeleton();
+                    window.dispatchEvent(new Event('recordListLoadData'));
+                    @this.emit('refreshComponent')
+                });
+            }
+            if(document.getElementById('wallet_adjustment-modal')){
+                document.getElementById('wallet_adjustment-modal').addEventListener('hidden.bs.modal', (e) => {
                     loadDataSkeleton();
                     window.dispatchEvent(new Event('recordListLoadData'));
                     @this.emit('refreshComponent')

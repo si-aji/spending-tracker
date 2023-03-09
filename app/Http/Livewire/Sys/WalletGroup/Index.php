@@ -3,9 +3,12 @@
 namespace App\Http\Livewire\Sys\WalletGroup;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
+
     /**
      * Sidebar Configuration
      */

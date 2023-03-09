@@ -37,12 +37,12 @@ Route::group([
     ], function(){
         // Re Order
         Route::get('re-order', \App\Http\Livewire\Sys\Wallet\ReOrder::class)->name('re-order.index');
+        // Group
+        Route::get('group', \App\Http\Livewire\Sys\WalletGroup\Index::class)->name('group.index');
+        
         // List
         Route::get('{uuid}', \App\Http\Livewire\Sys\Wallet\Show::class)->name('show');
         Route::get('/', \App\Http\Livewire\Sys\Wallet\Index::class)->name('index');
-
-        // Group
-        Route::get('group', \App\Http\Livewire\Sys\WalletGroup\Index::class)->name('group.index');
     });
 
     // Category
