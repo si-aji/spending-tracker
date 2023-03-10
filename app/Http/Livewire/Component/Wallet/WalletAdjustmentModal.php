@@ -17,6 +17,7 @@ class WalletAdjustmentModal extends Component
      */
     public $walletAdjustment_modalTitle = 'Wallet: Adjustment';
     // Data
+    public $timezone = null;
     public $walletReset_list = [];
     public $wallet_data = null;
     public $wallet_type = 'balance';

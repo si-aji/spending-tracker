@@ -67,7 +67,7 @@ class Index extends Component
     /**
      * Custom Function
      */
-    public function fetchRecordData($selectedWallet = null) : void
+    public function fetchRecordData($selectedWallet = null, $force = false) : void
     {
         $this->dataRecord = \App\Models\Record::with('fromWallet.parent', 'toWallet.parent', 'category.parent')
             ->where('user_id', \Auth::user()->id);
@@ -94,7 +94,9 @@ class Index extends Component
         $this->recordPaginate = $this->dataRecord->paginate($this->loadPerPage);
         $this->dataRecord = $this->dataRecord->values()->take($this->loadPerPage);
 
-        $this->dispatchBrowserEvent('fetchData');
+        $this->dispatchBrowserEvent('fetchData', [
+            'force' => $force
+        ]);
     }
     public function loadMore()
     {

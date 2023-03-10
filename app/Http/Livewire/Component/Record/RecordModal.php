@@ -50,7 +50,10 @@ class RecordModal extends Component
     protected $listeners = [
         'showModal' => 'showModal',
         'hideModal' => 'hideModal',
+
         'edit' => 'edit',
+        'delete' => 'delete',
+
         'switchTransferWallet' => 'switchTransferWallet'
     ];
 
@@ -493,6 +496,32 @@ class RecordModal extends Component
             }
         }
     }
+    public function destroy()
+    {
+        $data = \App\Models\Record::where('user_id', \Auth::user()->id)
+            ->where(\DB::raw('BINARY `uuid`'), $this->record_uuid)
+            ->first();
+
+        $uuid = [];
+        // Delete Data if exists
+        if(!empty($data)){
+            $uuid['uuid'] = $data->uuid;
+            // Validate if record is transfer
+            if(!empty($data->to_wallet_id)){
+                $related = $data->getRelated();
+                if(!empty($related)){
+                    $uuid['related'] = $related->uuid;
+                    $related->delete();
+                }
+            }
+
+            $data->delete();
+        }
+
+        (new \App\Http\Livewire\Sys\Record\Index())->fetchRecordData(null, true);
+        $this->reset($this->recordReset_list);
+        return $uuid;
+    }
 
     public function edit($uuid)
     {
@@ -540,6 +569,11 @@ class RecordModal extends Component
         }
 
         $this->showModal();
+    }
+    public function delete($uuid)
+    {
+        $this->record_uuid = $uuid;
+        $this->dispatchBrowserEvent('recordModal-confirmDelete');
     }
 
     /**

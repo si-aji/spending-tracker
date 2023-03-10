@@ -507,6 +507,46 @@
             @this.set('fromWalletData', null);
             @this.set('toWalletData', null);
         });
+        // Confirm if user want to delete related data
+        window.addEventListener('recordModal-confirmDelete', (e) => {
+            console.log(`Confirm delete`);
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                reverseButtons: true,
+                showLoaderOnConfirm: true,
+                preConfirm: (request) => {
+                    return @this.call('destroy').then((e) => {
+                        let data = e;
+                        Swal.fire({
+                            'title': 'Action: Success',
+                            'icon': 'success',
+                            'text': 'Record data successfully deleted'
+                        }).then((e) => {
+                            location.reload();
+                            // console.log(uuid);
+                            // if(data.uuid && document.querySelector(`[data-uuid="${data.uuid}"]`)){
+                            //     document.querySelector(`[data-uuid="${data.uuid}"]`).remove();
+                            // }
+                            // if(data.related && document.querySelector(`[data-uuid="${data.related}"]`)){
+                            //     document.querySelector(`[data-uuid="${data.related}"]`).remove();
+                            // }
+                        });
+                    });
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if ((!result.isConfirmed)) {
+                    @this.call('closeModal');
+                }
+            });
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             generateChoice();

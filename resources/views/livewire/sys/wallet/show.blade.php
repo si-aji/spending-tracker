@@ -366,7 +366,7 @@
                                     <div class="">
                                         <div class=" tw__my-2 tw__mt-4 lg:tw__mt-2 tw__flex tw__items-center tw__gap-4">
                                             <!-- Icon -->
-                                            <span class=" tw__min-h-[35px] tw__min-w-[35px] tw__rounded-full tw__text-white tw__bg-gray-400 tw__bg-opacity-75 tw__flex tw__items-center tw__justify-center">
+                                            <span class=" tw__min-h-[35px] tw__min-w-[35px] tw__rounded-full tw__text-white ${val.to_wallet ? 'tw__bg-gray-400' : (val.type === 'expense' ? 'tw__bg-red-400' : 'tw__bg-green-400')} tw__bg-opacity-75 tw__flex tw__items-center tw__justify-center">
                                                 <span class=" ${val.to_wallet ? 'tw__rotate-90' : (val.type === 'expense' ? 'tw__-rotate-90' : 'tw__rotate-90')}">
                                                     <i class="fa-solid ${val.to_wallet ? 'fa-arrow-right-arrow-left' : 'fa-right-from-bracket'}"></i>
                                                 </span>

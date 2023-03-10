@@ -3,7 +3,7 @@
     "/assets/plugins/nestable/nestable.js": "/assets/plugins/nestable/nestable.js?id=2012c7c6a6b4bc623df6453bdfa96f45",
     "/assets/plugins/imask/imask.js": "/assets/plugins/imask/imask.js?id=55faedefc64d28e2b1358b93fcaec833",
     "/assets/plugins/flatpickr/flatpickr.min.js": "/assets/plugins/flatpickr/flatpickr.min.js?id=da4cbb2ac0ff810bfa5885cde3f5e681",
-    "/assets/css/app.css": "/assets/css/app.css?id=f3d6bb815417b66662d6a92ba9797553",
+    "/assets/css/app.css": "/assets/css/app.css?id=959eecb4a1c1e45daa055757ab6d6e04",
     "/assets/corporate-ui/css/siaji.css": "/assets/corporate-ui/css/siaji.css?id=4c401081cc1c4cc386b4e7239a953b28",
     "/assets/corporate-ui/js/siaji.js": "/assets/corporate-ui/js/siaji.js?id=80065c16e316a01ab8f3a5c93cff8158",
     "/assets/corporate-ui/CHANGELOG.md": "/assets/corporate-ui/CHANGELOG.md?id=98bb060a97b8d9585846660d032465a9",
@@ -2468,5 +2468,7 @@
     "/assets/plugins/moment/moment.min.js": "/assets/plugins/moment/moment.min.js?id=6c0a2330b0d8d6ea185d4669a0eddeab",
     "/assets/plugins/moment/moment-timezone-with-data.min.js": "/assets/plugins/moment/moment-timezone-with-data.min.js?id=2622477c8a013ad7813291da3f5ef628",
     "/assets/plugins/nestable/nestable.css": "/assets/plugins/nestable/nestable.css?id=3121e0ba7527a605e4088b35239e42be",
-    "/assets/plugins/flatpickr/flatpickr.min.css": "/assets/plugins/flatpickr/flatpickr.min.css?id=d5a8fe5612330fee581d3f83b37ef858"
+    "/assets/plugins/flatpickr/flatpickr.min.css": "/assets/plugins/flatpickr/flatpickr.min.css?id=d5a8fe5612330fee581d3f83b37ef858",
+    "/assets/plugins/sweetalert2/sweetalert2.min.css": "/assets/plugins/sweetalert2/sweetalert2.min.css?id=53ef696d417d353efbd07c105f694756",
+    "/assets/plugins/sweetalert2/sweetalert2.all.min.js": "/assets/plugins/sweetalert2/sweetalert2.all.min.js?id=9f66f601e8906687e0d8f321fd74d996"
 }

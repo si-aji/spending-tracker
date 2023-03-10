@@ -8,7 +8,7 @@
                     <span class="input-group-text text-body bg-white  border-end-0 ">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </span>
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" placeholder="Search Menu">
                 </div>
             </div>
             <ul class="navbar-nav  justify-content-end">

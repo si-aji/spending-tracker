@@ -20,6 +20,7 @@
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
     <link href="{{ mix('assets/corporate-ui/css/corporate-ui-dashboard.css') }}" rel="stylesheet" />
     <link href="{{ mix('assets/corporate-ui/css/siaji.css') }}" rel="stylesheet" />
+    @include('layouts.plugins.sweetalert.css')
 
     @yield('css_plugins')
 @endsection
@@ -75,6 +76,7 @@
 	<script src="{{ mix('assets/corporate-ui/js/corporate-ui-dashboard.min.js') }}"></script>
     <script src="{{ mix('assets/corporate-ui/js/siaji.js') }}"></script>
 
+    @include('layouts.plugins.sweetalert.js')
     @include('layouts.plugins.imask.js')
     @yield('js_plugins')
 @endsection

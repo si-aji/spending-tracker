@@ -97,6 +97,15 @@
                     @this.wallet_amount = walletAdjustmentModalAmountMask.unmaskedValue;
                 });
             }
+
+            document.getElementById('wallet_adjustment-modal').addEventListener('shown.bs.modal', (e) => {
+                let timezone = null;
+                if(moment.tz.guess()){
+                    timezone = moment.tz.guess();
+                }
+
+                @this.timezone = timezone;
+            });
         });
     </script>
 @endpush

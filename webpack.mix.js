@@ -51,3 +51,6 @@ mix.js('resources/js/plugins/imask/script.js', 'public/assets/plugins/imask/imas
 // Flatpickr
 mix.js('resources/js/plugins/flatpickr/script.js', 'public/assets/plugins/flatpickr/flatpickr.min.js').version();
 mix.copy('node_modules/flatpickr/dist/flatpickr.min.css', 'public/assets/plugins/flatpickr/flatpickr.min.css').version();
+// Sweetalert2
+mix.copy('node_modules/sweetalert2/dist/sweetalert2.min.css', 'public/assets/plugins/sweetalert2/sweetalert2.min.css').version();
+mix.copy('node_modules/sweetalert2/dist/sweetalert2.all.min.js', 'public/assets/plugins/sweetalert2/sweetalert2.all.min.js').version();
